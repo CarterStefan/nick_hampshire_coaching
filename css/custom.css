@@ -211,6 +211,11 @@ section {
   .navbar-collapse.show {
     animation: slideDown 0.3s ease-out;
   }
+
+  /* Prevent flicker when navbar collapses/expands */
+.navbar-collapse.collapsing {
+  transition: none !important;
+}
   
   @keyframes slideDown {
     from { 
