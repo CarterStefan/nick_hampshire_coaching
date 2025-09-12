@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="css/custom.css" rel="stylesheet">
+  
 </head>
 
 <body>
@@ -33,6 +34,15 @@
           <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
           <li class="nav-item"><a class="nav-link" href="blog/index.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <div style="text-align:right; margin:10px;">
+            <button onclick="translatePage('en')">English</button>
+            <button onclick="translatePage('es')">Español</button>
+          </div>
+
+          <!-- Hidden Google Translate element -->
+          <div id="google_translate_element" style="display:none;"></div>
+
+
         </ul>
       </div>
     </div>
@@ -68,7 +78,8 @@
         <img src="./images/bp.png" alt="BP" class="img-fluid client-logo" style="max-height: 100px;">
       </div>
       <div class="text-center">
-        <img src="./images/IE_University.png" alt="IE_University" class="img-fluid client-logo" style="max-height: 100px;">
+        <img src="./images/IE_University.png" alt="IE_University" class="img-fluid client-logo"
+          style="max-height: 100px;">
       </div>
     </div>
   </section>
@@ -97,48 +108,48 @@
 
   <!-- SERVICES_OVERVIEW_SECTION_START -->
 
-<section id="services-overview" class="container my-5">
-  <h2 class="text-center mb-4">How I Can Help You</h2>
-  
-  <div class="services-flex">
-    
-    <!-- Section 1 – Flagship Service -->
-    <div class="service-card">
-      <h3 class="text-primary">Flagship Service (For Businesses)</h3>
-      <p class="fw-semibold">Communication & Public Speaking Consulting for Leadership Teams</p>
-      <ul>
-        <li>Interactive team workshops</li>
-        <li>Executive presentation skills training</li>
-        <li>Storytelling and influence for leaders</li>
-        <li><strong>Focus:</strong> business presentations, pitches, investor meetings, conferences</li>
-      </ul>
-      <a href="services.html" class="btn btn-primary">Learn More</a>
+  <section id="services-overview" class="container my-5">
+    <h2 class="text-center mb-4">How I Can Help You</h2>
+
+    <div class="services-flex">
+
+      <!-- Section 1 – Flagship Service -->
+      <div class="service-card">
+        <h3 class="text-primary">Flagship Service (For Businesses)</h3>
+        <p class="fw-semibold">Communication & Public Speaking Consulting for Leadership Teams</p>
+        <ul>
+          <li>Interactive team workshops</li>
+          <li>Executive presentation skills training</li>
+          <li>Storytelling and influence for leaders</li>
+          <li><strong>Focus:</strong> business presentations, pitches, investor meetings, conferences</li>
+        </ul>
+        <a href="services.html" class="btn btn-primary">Learn More</a>
+      </div>
+
+      <!-- Section 2 – 1:1 Executive Coaching -->
+      <div class="service-card">
+        <h3 class="text-primary">1:1 Executive Coaching</h3>
+
+        <h5 class="mt-3">Executive Public Speaking Coaching</h5>
+        <ul>
+          <li>Tailored coaching for CEOs & senior leaders</li>
+          <li>Overcome nerves, sharpen delivery, master influence</li>
+          <li>High-stakes presentations, media appearances, keynotes</li>
+        </ul>
+
+        <h5 class="mt-4">Executive Energy & Well-being Coaching</h5>
+        <ul>
+          <li>Mindset, fitness, recovery, resilience</li>
+          <li>Stress management & high-performance routines</li>
+          <li>Sustainable energy for leadership</li>
+        </ul>
+        <a href="services.html" class="btn btn-primary">Learn More</a>
+      </div>
+
     </div>
+  </section>
 
-    <!-- Section 2 – 1:1 Executive Coaching -->
-    <div class="service-card">
-      <h3 class="text-primary">1:1 Executive Coaching</h3>
-
-      <h5 class="mt-3">Executive Public Speaking Coaching</h5>
-      <ul>
-        <li>Tailored coaching for CEOs & senior leaders</li>
-        <li>Overcome nerves, sharpen delivery, master influence</li>
-        <li>High-stakes presentations, media appearances, keynotes</li>
-      </ul>
-
-      <h5 class="mt-4">Executive Energy & Well-being Coaching</h5>
-      <ul>
-        <li>Mindset, fitness, recovery, resilience</li>
-        <li>Stress management & high-performance routines</li>
-        <li>Sustainable energy for leadership</li>
-      </ul>
-      <a href="services.html" class="btn btn-primary">Learn More</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- SERVICES_OVERVIEW_SECTION_END -->
+  <!-- SERVICES_OVERVIEW_SECTION_END -->
 
 
 
@@ -146,116 +157,122 @@
 
   <section id="testimonials" class="container">
     <!-- Carousel wrapper -->
-      <div id="carouselTestimonials" class="carousel slide text-center carousel-dark" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="avatar" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar"
-              style="width: 150px;" />
-            <div class="d-flex justify-content-center">
-              <div class="testimonial-content" style="max-width: 800px;">
-                <p class="">
-                  <i class="fas fa-quote-left pe-2 quote"></i>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
-                  nesciunt sint eligendi reprehenderit reiciendis, quibusdam illo, beatae quia
-                  fugit consequatur laudantium velit magnam error. Consectetur distinctio fugit
-                  doloremque.
-                </p>
-                <h5 class="mb-3 text-muted">Maria Kate</h5>
-                <p class="text-muted">Photographer</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="avatar" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar"
-              style="width: 150px;" />
-            <div class="d-flex justify-content-center">
-              <div class="testimonial-content" style="max-width: 800px;">
-                <p class="">
-                  <i class="fas fa-quote-left pe-2 quote"></i>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
-                  nesciunt sint eligendi reprehenderit reiciendis.
-                </p>
-                <h5 class="mb-3 text-muted">John Doe</h5>
-                <p class="text-muted">Web Developer</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="avatar" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp" alt="avatar"
-              style="width: 150px;" />
-            <div class="d-flex justify-content-center">
-              <div class="testimonial-content" style="max-width: 800px;">
-                <p class="">
-                  <i class="fas fa-quote-left pe-2 quote"></i>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
-                  nesciunt sint eligendi reprehenderit reiciendis, quibusdam illo, beatae quia
-                  fugit consequatur laudantium velit magnam error. Consectetur distinctio fugit
-                  doloremque.
-                </p>
-                <h5 class="mb-3 text-muted">Anna Deynah</h5>
-                <p class="text-muted">UX Designer</p>
-              </div>
+    <div id="carouselTestimonials" class="carousel slide text-center carousel-dark" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="avatar" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar"
+            style="width: 150px;" />
+          <div class="d-flex justify-content-center">
+            <div class="testimonial-content" style="max-width: 800px;">
+              <p class="">
+                <i class="fas fa-quote-left pe-2 quote"></i>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
+                nesciunt sint eligendi reprehenderit reiciendis, quibusdam illo, beatae quia
+                fugit consequatur laudantium velit magnam error. Consectetur distinctio fugit
+                doloremque.
+              </p>
+              <h5 class="mb-3 text-muted">Maria Kate</h5>
+              <p class="text-muted">Photographer</p>
             </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonials" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonials" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        <div class="carousel-item">
+          <img class="avatar" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar"
+            style="width: 150px;" />
+          <div class="d-flex justify-content-center">
+            <div class="testimonial-content" style="max-width: 800px;">
+              <p class="">
+                <i class="fas fa-quote-left pe-2 quote"></i>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
+                nesciunt sint eligendi reprehenderit reiciendis.
+              </p>
+              <h5 class="mb-3 text-muted">John Doe</h5>
+              <p class="text-muted">Web Developer</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="avatar" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp" alt="avatar"
+            style="width: 150px;" />
+          <div class="d-flex justify-content-center">
+            <div class="testimonial-content" style="max-width: 800px;">
+              <p class="">
+                <i class="fas fa-quote-left pe-2 quote"></i>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
+                nesciunt sint eligendi reprehenderit reiciendis, quibusdam illo, beatae quia
+                fugit consequatur laudantium velit magnam error. Consectetur distinctio fugit
+                doloremque.
+              </p>
+              <h5 class="mb-3 text-muted">Anna Deynah</h5>
+              <p class="text-muted">UX Designer</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- Carousel wrapper -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonials" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonials" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- Carousel wrapper -->
   </section>
 
   <!-- CUSTOMER_REVIEWS_CAROUSEL_SECTION_END -->
 
   <!-- BLOG_SECTION_START -->
-<section id="latest-blog" class="container my-5">
-  <h2 class="text-center mb-4">Latest from the Blog</h2>
-  <div class="row g-4">
+  <section id="latest-blog" class="container my-5">
+    <h2 class="text-center mb-4">Latest from the Blog</h2>
+    <div class="row g-4">
 
-    <div class="col-md-4">
-      <div class="card h-100 text-bg-dark">
-        <img src="images/blog_default.jpg" class="card-img-top" alt="Mastering Performance, Bad Moods & Needing To Be Right">
-        <div class="card-body">
-          <h5 class="card-title">Mastering Performance, Bad Moods & Needing To Be Right</h5>
-          <p class="card-subtitle">A lesson for everyone on high performance.</p>
-          <p class="card-text">Sep 11, 2025</p>
-          <a href="blog/mastering-performance-bad-moods-needing-to-be-right.html" class="btn btn-primary">Read More</a>
+      <div class="col-md-4">
+        <div class="card h-100 text-bg-dark">
+          <img src="images/blog_default.jpg" class="card-img-top"
+            alt="Mastering Performance, Bad Moods & Needing To Be Right">
+          <div class="card-body">
+            <h5 class="card-title">Mastering Performance, Bad Moods & Needing To Be Right</h5>
+            <p class="card-subtitle">A lesson for everyone on high performance.</p>
+            <p class="card-text">Sep 11, 2025</p>
+            <a href="blog/mastering-performance-bad-moods-needing-to-be-right.html" class="btn btn-primary">Read
+              More</a>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div class="col-md-4">
-      <div class="card h-100 text-bg-dark">
-        <img src="images/blog_default.jpg" class="card-img-top" alt="Gratitude, Expectations & Why Momentum is Everything">
-        <div class="card-body">
-          <h5 class="card-title">Gratitude, Expectations & Why Momentum is Everything</h5>
-          <p class="card-subtitle">How we manage our expectations will determine the quality of our life.</p>
-          <p class="card-text">Sep 04, 2025</p>
-          <a href="blog/gratitude-expectations-why-momentum-is-everything.html" class="btn btn-primary">Read More</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4">
-      <div class="card h-100 text-bg-dark">
-        <img src="https://images.unsplash.com/photo-1661606781327-2ef6ecce291c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMDAzMzh8MHwxfHNlYXJjaHw1Mnx8cHJvZ3Jlc3N8ZW58MHx8fHwxNzU1ODczNTY2fDA&ixlib=rb-4.1.0&q=80&w=1080" class="card-img-top" alt="Changing Our Story, Chasing Success & Having A Broken Heart">
-        <div class="card-body">
-          <h5 class="card-title">Changing Our Story, Chasing Success & Having A Broken Heart</h5>
-          <p class="card-subtitle">Our world is as we believe it to be.</p>
-          <p class="card-text">Aug 22, 2025</p>
-          <a href="blog/changing-our-story-chasing-success-having-a-broken-heart.html" class="btn btn-primary">Read More</a>
-        </div>
-      </div>
-    </div>
-      </div>
-</section>
 
-<!-- BLOG_SECTION_END -->
+      <div class="col-md-4">
+        <div class="card h-100 text-bg-dark">
+          <img src="images/blog_default.jpg" class="card-img-top"
+            alt="Gratitude, Expectations & Why Momentum is Everything">
+          <div class="card-body">
+            <h5 class="card-title">Gratitude, Expectations & Why Momentum is Everything</h5>
+            <p class="card-subtitle">How we manage our expectations will determine the quality of our life.</p>
+            <p class="card-text">Sep 04, 2025</p>
+            <a href="blog/gratitude-expectations-why-momentum-is-everything.html" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 text-bg-dark">
+          <img
+            src="https://images.unsplash.com/photo-1661606781327-2ef6ecce291c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMDAzMzh8MHwxfHNlYXJjaHw1Mnx8cHJvZ3Jlc3N8ZW58MHx8fHwxNzU1ODczNTY2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+            class="card-img-top" alt="Changing Our Story, Chasing Success & Having A Broken Heart">
+          <div class="card-body">
+            <h5 class="card-title">Changing Our Story, Chasing Success & Having A Broken Heart</h5>
+            <p class="card-subtitle">Our world is as we believe it to be.</p>
+            <p class="card-text">Aug 22, 2025</p>
+            <a href="blog/changing-our-story-chasing-success-having-a-broken-heart.html" class="btn btn-primary">Read
+              More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG_SECTION_END -->
 
   <!-- FOOTER_SECTION_START -->
 
@@ -277,11 +294,17 @@
     <div>
       <p>&copy; 2025 Nick Hampshire Coaching. All rights reserved.</p>
     </div>
+
   </footer>
 
   <!-- FOOTER_SECTION_END -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Load Google Translate script -->
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Load your custom translation JS -->
+  <script src="translate.js"></script>
 </body>
 
 </html>
