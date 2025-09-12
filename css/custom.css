@@ -227,12 +227,12 @@ section {
 /* Enhanced Hero Section */
 .hero-section {
   position: relative;
-  min-height: 80vh;
+  min-height: 90vh;
   background-size: cover;
   background-position: center;
   background-image: url('../images/Nick_Hero.jpg');
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
