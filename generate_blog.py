@@ -45,8 +45,12 @@ INDEX_HEADER = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../services.html">Services</a></li>
-          <li class="nav-item"><a class="nav-link active" href="index.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/index.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
+          <!-- Hidden Google Translate element -->
+          <div id="google_translate_element" style="display:none;"></div>
         </ul>
       </div>
     </div>
@@ -82,6 +86,9 @@ INDEX_FOOTER = """
   <!-- FOOTER_SECTION_END -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <!-- Load your custom translation JS -->
+  <script src="../translate.js"></script>
 </body>
 </html>
 """
@@ -92,7 +99,11 @@ POST_TEMPLATE = """<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} - Blog</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:...&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="../css/custom.css" rel="stylesheet">
 </head>
 <body>
@@ -107,8 +118,12 @@ POST_TEMPLATE = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../services.html">Services</a></li>
-          <li class="nav-item"><a class="nav-link active" href="index.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="blog/index.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
+          <!-- Hidden Google Translate element -->
+          <div id="google_translate_element" style="display:none;"></div>
         </ul>
       </div>
     </div>
@@ -141,6 +156,9 @@ POST_TEMPLATE = """<!DOCTYPE html>
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <!-- Load your custom translation JS -->
+  <script src="../translate.js"></script>
 </body>
 </html>
 """

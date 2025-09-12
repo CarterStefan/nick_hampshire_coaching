@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="css/custom.css" rel="stylesheet">
-  
+
 </head>
 
 <body>
@@ -34,15 +34,10 @@
           <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
           <li class="nav-item"><a class="nav-link" href="blog/index.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <div style="text-align:right; margin:10px;">
-            <button onclick="translatePage('en')">English</button>
-            <button onclick="translatePage('es')">Español</button>
-          </div>
-
+          <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
           <!-- Hidden Google Translate element -->
           <div id="google_translate_element" style="display:none;"></div>
-
-
         </ul>
       </div>
     </div>
@@ -224,55 +219,49 @@
   <!-- CUSTOMER_REVIEWS_CAROUSEL_SECTION_END -->
 
   <!-- BLOG_SECTION_START -->
-  <section id="latest-blog" class="container my-5">
-    <h2 class="text-center mb-4">Latest from the Blog</h2>
-    <div class="row g-4">
+<section id="latest-blog" class="container my-5">
+  <h2 class="text-center mb-4">Latest from the Blog</h2>
+  <div class="row g-4">
 
-      <div class="col-md-4">
-        <div class="card h-100 text-bg-dark">
-          <img src="images/blog_default.jpg" class="card-img-top"
-            alt="Mastering Performance, Bad Moods & Needing To Be Right">
-          <div class="card-body">
-            <h5 class="card-title">Mastering Performance, Bad Moods & Needing To Be Right</h5>
-            <p class="card-subtitle">A lesson for everyone on high performance.</p>
-            <p class="card-text">Sep 11, 2025</p>
-            <a href="blog/mastering-performance-bad-moods-needing-to-be-right.html" class="btn btn-primary">Read
-              More</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card h-100 text-bg-dark">
-          <img src="images/blog_default.jpg" class="card-img-top"
-            alt="Gratitude, Expectations & Why Momentum is Everything">
-          <div class="card-body">
-            <h5 class="card-title">Gratitude, Expectations & Why Momentum is Everything</h5>
-            <p class="card-subtitle">How we manage our expectations will determine the quality of our life.</p>
-            <p class="card-text">Sep 04, 2025</p>
-            <a href="blog/gratitude-expectations-why-momentum-is-everything.html" class="btn btn-primary">Read More</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card h-100 text-bg-dark">
-          <img
-            src="https://images.unsplash.com/photo-1661606781327-2ef6ecce291c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMDAzMzh8MHwxfHNlYXJjaHw1Mnx8cHJvZ3Jlc3N8ZW58MHx8fHwxNzU1ODczNTY2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-            class="card-img-top" alt="Changing Our Story, Chasing Success & Having A Broken Heart">
-          <div class="card-body">
-            <h5 class="card-title">Changing Our Story, Chasing Success & Having A Broken Heart</h5>
-            <p class="card-subtitle">Our world is as we believe it to be.</p>
-            <p class="card-text">Aug 22, 2025</p>
-            <a href="blog/changing-our-story-chasing-success-having-a-broken-heart.html" class="btn btn-primary">Read
-              More</a>
-          </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-bg-dark">
+        <img src="images/blog_default.jpg" class="card-img-top" alt="Mastering Performance, Bad Moods & Needing To Be Right">
+        <div class="card-body">
+          <h5 class="card-title">Mastering Performance, Bad Moods & Needing To Be Right</h5>
+          <p class="card-subtitle">A lesson for everyone on high performance.</p>
+          <p class="card-text">Sep 11, 2025</p>
+          <a href="blog/mastering-performance-bad-moods-needing-to-be-right.html" class="btn btn-primary">Read More</a>
         </div>
       </div>
     </div>
-  </section>
+    
+    <div class="col-md-4">
+      <div class="card h-100 text-bg-dark">
+        <img src="images/blog_default.jpg" class="card-img-top" alt="Gratitude, Expectations & Why Momentum is Everything">
+        <div class="card-body">
+          <h5 class="card-title">Gratitude, Expectations & Why Momentum is Everything</h5>
+          <p class="card-subtitle">How we manage our expectations will determine the quality of our life.</p>
+          <p class="card-text">Sep 04, 2025</p>
+          <a href="blog/gratitude-expectations-why-momentum-is-everything.html" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card h-100 text-bg-dark">
+        <img src="https://images.unsplash.com/photo-1661606781327-2ef6ecce291c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMDAzMzh8MHwxfHNlYXJjaHw1Mnx8cHJvZ3Jlc3N8ZW58MHx8fHwxNzU1ODczNTY2fDA&ixlib=rb-4.1.0&q=80&w=1080" class="card-img-top" alt="Changing Our Story, Chasing Success & Having A Broken Heart">
+        <div class="card-body">
+          <h5 class="card-title">Changing Our Story, Chasing Success & Having A Broken Heart</h5>
+          <p class="card-subtitle">Our world is as we believe it to be.</p>
+          <p class="card-text">Aug 22, 2025</p>
+          <a href="blog/changing-our-story-chasing-success-having-a-broken-heart.html" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+    </div>
+      </div>
+</section>
 
-  <!-- BLOG_SECTION_END -->
+<!-- BLOG_SECTION_END -->
 
   <!-- FOOTER_SECTION_START -->
 

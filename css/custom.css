@@ -197,6 +197,19 @@ section {
   justify-content: flex-end;
 }
 
+.lang-button {
+    padding: 5px 10px;
+    margin: 0 2px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: white;
+  }
+
+  .lang-button.active {
+    background-color: var(--primary-color); /* highlight color */
+    color: white;
+  }
+
 /* Mobile Navigation */
 @media (max-width: 991.98px) {
   .navbar-collapse {
