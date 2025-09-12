@@ -349,11 +349,18 @@ main.container {
 }
 
 .profile-img {
-  max-width: 350px;
-  max-height: 350px;
+  width: 100%;
+  max-width: 350px;   /* still cap it for larger screens */
+  height: auto;       /* keeps aspect ratio */
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .profile-img {
+    max-width: 100%;
+  }
 }
 
 .profile-img:hover {
