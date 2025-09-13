@@ -47,10 +47,10 @@ INDEX_HEADER = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../services.html">Services</a></li>
           <li class="nav-item"><a class="nav-link active" href="/index.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
           <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
-          <!-- Hidden Google Translate element -->
-          <div id="google_translate_element" style="display:none;"></div>
+          Hidden Google Translate element
+          <div id="google_translate_element" style="display:none;"></div> -->
         </ul>
       </div>
     </div>
@@ -120,10 +120,10 @@ POST_TEMPLATE = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../services.html">Services</a></li>
           <li class="nav-item"><a class="nav-link active" href="blog/index.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
           <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
-          <!-- Hidden Google Translate element -->
-          <div id="google_translate_element" style="display:none;"></div>
+          Hidden Google Translate element
+          <div id="google_translate_element" style="display:none;"></div> -->
         </ul>
       </div>
     </div>
