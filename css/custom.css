@@ -111,13 +111,17 @@ section {
   color: var(--black) !important;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
 .bg-secondary,
 .btn-secondary {
   background: var(--secondary-gradient) !important;
   border: none !important;
+  color: var(--white) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .bg-black {
