@@ -130,11 +130,11 @@ POST_TEMPLATE = """<!DOCTYPE html>
   </nav>
   <main class="container mt-5">
     <h1>{title}</h1>
-    <p class="text-muted">{date}</p>
+    <p class="">{date}</p>
     <article class="mt-4">
       {content}
     </article>
-    <a href="index.html" class="btn btn-primary mt-4">← Back to Blog</a>
+    <a href="index.html" class="btn btn-secondary mt-4 mb-4">← Back to Blog</a>
   </main>
   <footer id="footer" class="bg-black text-white text-center">
     <div class="">
@@ -191,7 +191,7 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
         <div class="card mb-4 text-bg-dark featured-blog-card">
           <div class="row g-0 h-100">
             <div class="col-md-6">
-              <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded-start" alt="{entry.title}">
+              <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded" alt="{entry.title}">
             </div>
             <div class="col-md-6 d-flex flex-column justify-content-center p-4">
               <h2 class="card-title">{entry.title}</h2>
@@ -208,7 +208,7 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
         <div class="card mb-3 text-bg-dark blog-card">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded-start" alt="{entry.title}">
+              <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded-top" alt="{entry.title}">
             </div>
             <div class="col-md-8 d-flex flex-column justify-content-center p-3">
               <h5 class="card-title">{entry.title}</h5>

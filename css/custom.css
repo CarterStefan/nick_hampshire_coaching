@@ -88,6 +88,11 @@ h2:not(.client-header)::after {
   border-radius: 2px;
 }
 
+a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
 header,
 section {
   margin-bottom: 100px;
@@ -664,6 +669,10 @@ main.container {
 
 .object-fit-cover {
   object-fit: cover;
+}
+
+.image-link-expand{
+  display: none;
 }
 
 /* Mobile Optimizations */
