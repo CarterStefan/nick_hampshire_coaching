@@ -188,6 +188,7 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
     if i == 0:
         # --- Featured (latest) blog post ---
         index_html += f"""
+        <a href="{slug}.html" class="text-decoration-none text-reset">
         <div class="card mb-4 text-bg-dark featured-blog-card">
           <div class="row g-0 h-100">
             <div class="col-md-6">
@@ -196,15 +197,16 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
             <div class="col-md-6 d-flex flex-column justify-content-center p-4">
               <h2 class="card-title">{entry.title}</h2>
               <p class="card-subtitle mb-2">{subtitle}</p>
-              <p class="card-text"><small class="">{date}</small></p>
-              <a href="{slug}.html" class="btn btn-primary mt-3">Read More</a>
+              <p class="card-text"><small class="">{date}</small></p>              
             </div>
           </div>
         </div>
+        </a>
         """
     else:
         # --- Regular blog posts ---
         index_html += f"""
+        <a href="{slug}.html" class="text-decoration-none text-reset">
         <div class="card mb-3 text-bg-dark blog-card">
           <div class="row g-0">
             <div class="col-md-4">
@@ -214,10 +216,10 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
               <h5 class="card-title">{entry.title}</h5>
               <p class="card-subtitle mb-2">{subtitle}</p>
               <p class="card-text"><small class="">{date}</small></p>
-              <a href="{slug}.html" class="btn btn-sm btn-secondary mt-2">Read More</a>
             </div>
           </div>
         </div>
+        </a>
         """
 
 index_html += INDEX_FOOTER
@@ -271,17 +273,20 @@ for entry in latest_posts:
     subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else ""
 
     cards_html += f"""
+    
     <div class="col-md-4">
+    <a href="blog/{slug}.html" class="text-decoration-none text-reset">    
       <div class="card h-100 text-bg-dark">
         {img_html}
         <div class="card-body">
           <h5 class="card-title">{entry.title}</h5>
           <p class="card-subtitle">{subtitle}</p>
           <p class="card-text">{date}</p>
-          <a href="blog/{slug}.html" class="btn btn-primary">Read More</a>
         </div>
       </div>
+      </a>
     </div>
+    
     """
 
 cards_html += "  </div>\n</section>\n"
