@@ -448,6 +448,17 @@ main.container {
   margin-top: auto;
 }
 
+/* Public Speaking Section */
+.public-speaking-cards {
+  gap: 1.5rem; /* spacing between cards */
+}
+
+.public-speaking-card {
+  flex: 1 1 300px;   /* grows and shrinks with min width */
+  max-width: 350px; /* keeps cards from stretching too wide */
+}
+
+
 /* Testimonials */
 
 .carousel {
