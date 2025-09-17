@@ -57,7 +57,7 @@ INDEX_HEADER = """<!DOCTYPE html>
     </div>
   </nav>
   <main class="container mt-5">
-    <h1 class="text-center mb-4">My Blog</h1>
+    
     <div class="blog-list-group">
 """
 
@@ -248,7 +248,7 @@ for i, entry in enumerate(feed.entries, start=1):
 # --- Update homepage with latest 3 ---
 latest_posts = feed.entries[:3]
 cards_html = '<section id="latest-blog" class="container my-5">\n'
-cards_html += '  <h2 class="text-center mb-4">Latest from the Blog</h2>\n'
+cards_html += '  <h2 class="mb-4">Latest from the Blog</h2>\n'
 cards_html += '  <div class="row g-4">\n'
 
 for entry in latest_posts:
