@@ -61,7 +61,6 @@ h5,
 h6 {
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--primary-color);
 }
@@ -745,6 +744,58 @@ main.container {
     height: auto;
   }
 }
+
+/* ABOUT ME SECTION */
+/* Split section flex layout */
+/* Split section flex layout */
+.split-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.split-section.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Equal split for text and media */
+.text-block,
+.media-block {
+  flex: 1;
+}
+
+/* Responsive stacking on smaller screens */
+@media (max-width: 768px) {
+  .split-section,
+  .split-section.reverse {
+    flex-direction: column;
+  }
+
+  .media-block {
+    order: -1; /* media on top when stacked */
+  }
+}
+
+/* Shared media styles for images & video */
+.media-block img,
+.media-block iframe {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+}
+
+/* Videos should always keep 16:9 ratio */
+.media-block iframe {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 300px; /* ensures it doesn't shrink too small */
+}
+
+
+
 
 /* Blog post images - full width, maintain aspect ratio */
 article img {
