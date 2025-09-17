@@ -134,7 +134,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
     <article class="mt-4">
       {content}
     </article>
-    <a href="index.html" class="btn btn-secondary mt-4 mb-4">← Back to Blog</a>
+    <a href="/" class="btn btn-secondary mt-4 mb-4">← Back to Blog</a>
   </main>
   <footer id="footer" class="bg-black text-white text-center">
     <div class="">
