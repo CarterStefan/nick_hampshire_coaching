@@ -27,16 +27,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-  <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-  <li class="nav-item"><a class="nav-link" href="/coaching">Coaching</a></li>
-  <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-  <li class="nav-item"><a class="nav-link active" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/coaching">Coaching</a></li>
+          <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/contact">Contact</a></li>
       </div>
     </div>
   </nav>
   <main class="container">
     <h1>Contact</h1>
-    <form class="mb-5"action="https://api.web3forms.com/submit" method="POST">
+    <form class="mb-5" action="https://api.web3forms.com/submit" method="POST">
       <div class="mb-3">
         <input type="hidden" name="access_key" value="ca95ec5f-ee97-4d65-98b7-a3ea0b14a86a">
 
@@ -46,6 +46,15 @@
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="select" class="form-label">Primary focus</label>
+        <select class="form-select" aria-label="Default select example" required>
+          <option selected>Communication team workshop</option>
+          <option value="1">Public speaking coaching</option>
+          <option value="2">Energy and wellbeing</option>
+          <option value="3">Private event</option>
+        </select>
       </div>
       <div class="mb-3">
         <label for="message" class="form-label">Message</label>
