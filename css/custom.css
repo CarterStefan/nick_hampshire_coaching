@@ -25,7 +25,8 @@
 }
 
 /* Sticky footer layout */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -37,11 +38,13 @@ body {
 }
 
 main {
-  flex: 1; /* ensures main content stretches and pushes footer down */
+  flex: 1;
+  /* ensures main content stretches and pushes footer down */
 }
 
 footer {
-  flex-shrink: 0; /* footer stays at the bottom */
+  flex-shrink: 0;
+  /* footer stays at the bottom */
 }
 
 body {
@@ -88,8 +91,8 @@ h2:not(.client-header)::after {
 }
 
 a {
-    color: var(--primary-color);
-    text-decoration: underline;
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 header,
@@ -118,7 +121,7 @@ section {
   background: var(--secondary-gradient) !important;
   border: none !important;
   color: var(--white) !important;
-  font-weight: 600;
+  font-weight: 400 !important;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -203,20 +206,22 @@ section {
 .navbar .navbar-nav {
   margin-left: auto;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .lang-button {
-    padding: 5px 10px;
-    margin: 0 2px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: white;
-  }
+  padding: 5px 10px;
+  margin: 0 2px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: white;
+}
 
-  .lang-button.active {
-    background-color: var(--primary-color); /* highlight color */
-    color: white;
-  }
+.lang-button.active {
+  background-color: var(--primary-color);
+  /* highlight color */
+  color: white;
+}
 
 /* Mobile Navigation */
 @media (max-width: 991.98px) {
@@ -228,24 +233,26 @@ section {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
-  
+
   .navbar-collapse.show {
     animation: slideDown 0.3s ease-out;
   }
 
+
   /* Prevent flicker when navbar collapses/expands */
-.navbar-collapse.collapsing {
-  transition: none !important;
-}
-  
+  .navbar-collapse.collapsing {
+    transition: none !important;
+  }
+
   @keyframes slideDown {
-    from { 
-      opacity: 0; 
-      transform: translateY(-20px); 
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
     }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
@@ -259,9 +266,12 @@ section {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-top: 120px;   /* offset so text clears navbar */
-  padding-bottom: 60px; /* some breathing space at bottom */
+  padding-top: 120px;
+  /* offset so text clears navbar */
+  padding-bottom: 60px;
+  /* some breathing space at bottom */
 }
+
 .hero-section::before {
   content: '';
   position: absolute;
@@ -278,17 +288,20 @@ section {
 
 .hero-overlay {
   z-index: 1;
-  background: linear-gradient(
-    to bottom,
-    rgba(51, 45, 46, 0) 0%,   /* strong overlay at top */
-    rgba(51, 45, 46, 0.4) 40%,  /* fade a little */
-    #332D2E 100%                /* match page background at bottom */
-  ) !important;
+  background: linear-gradient(to bottom,
+      rgba(51, 45, 46, 0) 0%,
+      /* strong overlay at top */
+      rgba(51, 45, 46, 0.4) 40%,
+      /* fade a little */
+      #332D2E 100%
+      /* match page background at bottom */
+    ) !important;
 }
 
 .hero-section .container {
   z-index: 2;
-  padding-top: 0; /* remove old padding */
+  padding-top: 0;
+  /* remove old padding */
   padding-bottom: 0;
 }
 
@@ -308,7 +321,8 @@ section {
 
 .hero-section .container {
   z-index: 2;
-  padding-top: 75px; /* keeps hero text below navbar */
+  padding-top: 75px;
+  /* keeps hero text below navbar */
   padding-bottom: calc(var(--bs-gutter-x) * 2);
 }
 
@@ -323,6 +337,7 @@ section {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -377,8 +392,10 @@ main.container {
 
 .profile-img {
   width: 100%;
-  max-width: 350px;   /* still cap it for larger screens */
-  height: auto;       /* keeps aspect ratio */
+  max-width: 350px;
+  /* still cap it for larger screens */
+  height: auto;
+  /* keeps aspect ratio */
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
@@ -450,12 +467,15 @@ main.container {
 
 /* Public Speaking Section */
 .public-speaking-cards {
-  gap: 1.5rem; /* spacing between cards */
+  gap: 1.5rem;
+  /* spacing between cards */
 }
 
 .public-speaking-card {
-  flex: 1 1 300px;   /* grows and shrinks with min width */
-  max-width: 350px; /* keeps cards from stretching too wide */
+  flex: 1 1 300px;
+  /* grows and shrinks with min width */
+  max-width: 350px;
+  /* keeps cards from stretching too wide */
 }
 
 
@@ -686,7 +706,7 @@ main.container {
   object-fit: cover;
 }
 
-.image-link-expand{
+.image-link-expand {
   display: none;
 }
 
@@ -696,51 +716,51 @@ main.container {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
-  
+
   section {
     padding-top: 40px;
     padding-bottom: 40px;
   }
-  
+
   header,
   section {
     margin-bottom: 60px;
   }
-  
+
   .introduction-content {
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
   }
-  
+
   #clients,
   #testimonials {
     padding: 2rem;
   }
-  
+
   .hero-section h1 {
     max-width: 100%;
   }
-  
+
   .blog-card {
     max-width: 100%;
     flex-direction: column;
   }
-  
+
   .blog-card img {
     width: 100%;
     height: 150px;
   }
-  
+
   .featured-blog-card {
     height: auto;
     max-width: 100%;
   }
-  
+
   .featured-blog-card .row {
     flex-direction: column;
   }
-  
+
   .featured-blog-card img {
     height: auto;
   }
@@ -769,13 +789,15 @@ main.container {
 
 /* Responsive stacking on smaller screens */
 @media (max-width: 768px) {
+
   .split-section,
   .split-section.reverse {
     flex-direction: column;
   }
 
   .media-block {
-    order: -1; /* media on top when stacked */
+    order: -1;
+    /* media on top when stacked */
   }
 }
 
@@ -784,7 +806,7 @@ main.container {
 .media-block iframe {
   width: 100%;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: block;
 }
 
@@ -792,7 +814,8 @@ main.container {
 .media-block iframe {
   aspect-ratio: 16 / 9;
   height: auto;
-  min-height: 300px; /* ensures it doesn't shrink too small */
+  min-height: 300px;
+  /* ensures it doesn't shrink too small */
 }
 
 
@@ -804,7 +827,8 @@ article img {
   height: auto;
   display: block;
   margin: 1.5rem 0;
-  border-radius: 8px; /* optional: keeps a consistent style */
+  border-radius: 8px;
+  /* optional: keeps a consistent style */
 }
 
 /* Optional: center figure content */

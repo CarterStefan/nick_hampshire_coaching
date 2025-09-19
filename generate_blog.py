@@ -46,7 +46,7 @@ INDEX_HEADER = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
-          <li class="nav-item"><a class="nav-link active" href="index">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
           <!-- <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
           <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
@@ -122,8 +122,9 @@ POST_TEMPLATE = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
-          <li class="nav-item"><a class="nav-link active" href="index">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
+          <li class="nav-item"><button class="btn btn-secondary btn-sm rounded" href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a></li>
         </ul>
       </div>
     </div>
@@ -134,7 +135,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
     <article class="mt-4">
       {content}
     </article>
-    <a href="/" class="btn btn-secondary mt-4 mb-4">← Back to Blog</a>
+    <a href="/blog" class="btn btn-primary mt-4 mb-4">← Back to Blog</a>
   </main>
   <footer id="footer" class="bg-black text-white text-center">
     <div class="">
