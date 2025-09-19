@@ -308,7 +308,7 @@ section {
 
 .hero-section .container {
   z-index: 2;
-  padding-top: 120px; /* keeps hero text below navbar */
+  padding-top: 75px; /* keeps hero text below navbar */
   padding-bottom: calc(var(--bs-gutter-x) * 2);
 }
 
