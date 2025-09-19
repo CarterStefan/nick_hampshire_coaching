@@ -271,7 +271,7 @@ section {
   bottom: 0;
   background-image: url('../images/Nick_Hero.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: left;
   filter: grayscale(100%) brightness(0.4);
   z-index: 0;
 }
