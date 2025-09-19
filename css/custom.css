@@ -253,15 +253,15 @@ section {
 /* Enhanced Hero Section */
 .hero-section {
   position: relative;
-  min-height: 90vh;
   background-size: cover;
   background-position: center;
   background-image: url('../images/Nick_Hero.jpg');
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding-top: 120px;   /* offset so text clears navbar */
+  padding-bottom: 60px; /* some breathing space at bottom */
 }
-
 .hero-section::before {
   content: '';
   position: absolute;
@@ -288,7 +288,8 @@ section {
 
 .hero-section .container {
   z-index: 2;
-  padding-bottom: calc(var(--bs-gutter-x) * 2);
+  padding-top: 0; /* remove old padding */
+  padding-bottom: 0;
 }
 
 .hero-section h1 {
@@ -311,11 +312,11 @@ section {
   padding-bottom: calc(var(--bs-gutter-x) * 2);
 }
 
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .hero-section .container {
-    padding-top: 140px; /* push text lower on mobile */
+    padding-top: 140px;  push text lower on mobile 
   }
-}
+} */
 
 @keyframes fadeInUp {
   from {
