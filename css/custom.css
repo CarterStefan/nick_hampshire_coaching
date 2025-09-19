@@ -832,6 +832,11 @@ main.container {
   /* ensures it doesn't shrink too small */
 }
 
+.mission-quote {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
 
 
 
