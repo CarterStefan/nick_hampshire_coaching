@@ -326,6 +326,20 @@ section {
   padding-bottom: calc(var(--bs-gutter-x) * 2);
 }
 
+.hero-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+  }
+
 /*@media (max-width: 768px) {
   .hero-section .container {
     padding-top: 140px;  push text lower on mobile 
