@@ -48,10 +48,8 @@ INDEX_HEADER = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
           <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
-          <!-- <li class="nav-item"><a class="nav-link" onclick="translatePage('en')">English</a></li>
-          <li class="nav-item"><a class="nav-link" onclick="translatePage('es')">Español</a></li>
-          Hidden Google Translate element
-          <div id="google_translate_element" style="display:none;"></div> -->
+          <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
+              href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a></li>
         </ul>
       </div>
     </div>
@@ -124,7 +122,8 @@ POST_TEMPLATE = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
           <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
-          <li class="nav-item"><button class="btn btn-secondary btn-sm rounded" href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a></li>
+          <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
+              href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a></li>
         </ul>
       </div>
     </div>
