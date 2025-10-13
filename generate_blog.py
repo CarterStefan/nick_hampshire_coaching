@@ -46,6 +46,7 @@ INDEX_HEADER = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
+          <li class="nav-item"><a class="nav-link" href="../speaking">Speaking</a></li>
           <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
           <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
@@ -120,6 +121,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
+          <li class="nav-item"><a class="nav-link" href="../speaking">Speaking</a></li>
           <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
           <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
