@@ -10,6 +10,19 @@
   --background-color: #1C1C1F;
   --surface-color: #2A2A2E;
   --card-bg: #2A2A2E;
+
+  /* accessibility-aware muted and body text */
+  --text-body: rgba(249, 249, 254, 0.95);
+  --text-muted: rgba(249, 249, 254, 0.72);
+
+  /* typography scale (only visual changes) */
+  --h1-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  --h2-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  --h3-size: 1.3rem;
+  --h4-size: 1.05rem;
+  --lead-size: 1.35rem;
+  --body-size: 17px;
+  --small-size: 0.85rem;
 }
 
 .text-white {
@@ -49,10 +62,10 @@ footer {
 
 body {
   font-family: "Archivo Narrow", sans-serif;
-  background: #332D2E;
-  color: var(--white);
+  background: var(--background-color);
+  color: var(--text-body);
   line-height: 1.6;
-  font-size: 18px;
+  font-size: var(--body-size);
 }
 
 /* Enhanced Typography */
@@ -69,12 +82,12 @@ h6 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: var(--h1-size);
   margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: var(--h2-size);
   margin-bottom: 2rem;
   position: relative;
 }
@@ -156,7 +169,7 @@ section {
 
 .navbar .navbar-brand,
 .navbar .nav-link {
-  color: var(--white) !important;
+  color: var(--text-body) !important;
   font-size: 18px;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -288,14 +301,7 @@ section {
 
 .hero-overlay {
   z-index: 1;
-  background: linear-gradient(to bottom,
-      rgba(51, 45, 46, 0) 0%,
-      /* strong overlay at top */
-      rgba(51, 45, 46, 0.4) 40%,
-      /* fade a little */
-      #332D2E 100%
-      /* match page background at bottom */
-    ) !important;
+  background: linear-gradient(to bottom, rgba(51, 45, 46, 0) 0%, #1C1C1F 100%) !important
 }
 
 .hero-section .container {
@@ -334,17 +340,11 @@ section {
 
 @media (max-width: 768px) {
   .hero-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }
-  }
-
-/*@media (max-width: 768px) {
-  .hero-section .container {
-    padding-top: 140px;  push text lower on mobile 
-  }
-} */
 
 @keyframes fadeInUp {
   from {
@@ -359,12 +359,12 @@ section {
 }
 
 .lead {
-  font-size: 1.5rem;
+  font-size: var(--lead-size);
   font-family: "Archivo Narrow", sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-body);
 }
 
 main.container {
@@ -428,7 +428,7 @@ main.container {
 .about-text {
   font-size: 1.25rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-body);
 }
 
 /* Services Section */
@@ -468,7 +468,7 @@ main.container {
 
 #services-overview ul li {
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-body);
 }
 
 #services-overview .btn {
@@ -516,7 +516,7 @@ main.container {
 
 .track-card p {
   font-size: 1rem;
-  color: #e5e5e5;
+  color: var(--text-body);
   margin-bottom: 1rem;
 }
 
@@ -570,7 +570,6 @@ main.container {
 
 
 /* Testimonials */
-
 .carousel {
   background: rgba(255, 255, 255, 0.95);
   padding: 3rem;
@@ -733,7 +732,7 @@ main.container {
 
 .blog-card-date {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
 
@@ -905,7 +904,6 @@ main.container {
   aspect-ratio: 16 / 9;
   height: auto;
   min-height: 300px;
-  /* ensures it doesn't shrink too small */
 }
 
 .mission-quote {
@@ -1031,7 +1029,6 @@ article img {
   display: block;
   margin: 1.5rem 0;
   border-radius: 8px;
-  /* optional: keeps a consistent style */
 }
 
 /* Optional: center figure content */
@@ -1042,7 +1039,7 @@ article figure {
 
 article figcaption {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-muted);
   margin-top: 0.5rem;
 }
 
