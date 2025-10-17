@@ -874,6 +874,7 @@ main.container {
 .text-block,
 .media-block {
   flex: 1;
+  font-size: 1.2rem;
 }
 
 /* Responsive stacking on smaller screens */
@@ -882,6 +883,7 @@ main.container {
   .split-section,
   .split-section.reverse {
     flex-direction: column;
+    margin-bottom: 0;
   }
 
   .media-block {
@@ -889,6 +891,25 @@ main.container {
     /* media on top when stacked */
   }
 }
+
+/* Limit image size on larger screens */
+@media (min-width: 992px) {
+  .media-block img {
+    width: 100%;
+    max-width: 400px; /* Adjust as desired */
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Optional: center image if section is flex-aligned */
+  .split-section .media-block {
+    display: flex;
+    justify-content: center;
+    max-width: 400px
+  }
+}
+
 
 /* Shared media styles for images & video */
 .media-block img,
