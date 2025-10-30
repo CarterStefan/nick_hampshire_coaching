@@ -183,7 +183,7 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
     if img_tag and img_tag.get("src"):
         img_src = img_tag["src"]
     else:
-        img_src = "../images/Nick_Running_2.jpg"  # relative to blog/index.html
+        img_src = "../images/Nick_Pensive.jpg"  # relative to blog/index.html
 
     # Subtitle (cleaned summary, or blank if none)
     raw_subtitle = entry.get("summary", "")
@@ -268,7 +268,7 @@ for entry in latest_posts:
     if img_tag and img_tag.get("src"):
         img_src = img_tag["src"]
     else:
-        img_src = "images/Nick_Running_2.jpg"  # relative to index.html
+        img_src = "images/Nick_Pensive.jpg"  # relative to index.html
 
     img_html = f'<img src="{img_src}" class="card-img-top" alt="{entry.title}">'
 
