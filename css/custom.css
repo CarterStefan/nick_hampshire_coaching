@@ -124,7 +124,7 @@ section {
   background: var(--primary-gradient) !important;
   border: none !important;
   color: var(--black) !important;
-  font-weight: 600;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -134,7 +134,7 @@ section {
   background: var(--secondary-gradient) !important;
   border: none !important;
   color: var(--white) !important;
-  font-weight: 400 !important;
+  font-weight: 900 !important;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -147,7 +147,7 @@ section {
   padding: 1.25rem 2.5rem;
   font-size: 1.25rem;
   border-radius: 8px;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Elms Sans", sans-serif;
 }
 
 /* Navigation */
@@ -508,7 +508,7 @@ main.container {
 }
 
 .track-card h4 {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Elms Sans", sans-serif;
   font-size: 1.5rem;
   color: #fff;
   margin-bottom: 0.75rem;
@@ -974,7 +974,7 @@ main.container {
 }
 
 .topic-card h3 {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Elms Sans", sans-serif;
   font-size: 1.6rem;
   margin-bottom: 1rem;
   color: #000;
