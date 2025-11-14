@@ -61,7 +61,7 @@ footer {
 }
 
 body {
-  font-family: "Archivo Narrow", sans-serif;
+  font-family: "Elms Sans", sans-serif;
   background: var(--background-color);
   color: var(--text-body);
   line-height: 1.6;
@@ -76,7 +76,7 @@ h4,
 h5,
 h6 {
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.2;
   color: var(--primary-color);
 }
@@ -360,7 +360,7 @@ section {
 
 .lead {
   font-size: var(--lead-size);
-  font-family: "Archivo Narrow", sans-serif;
+  font-family: "Elms Sans", sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0.1em;
