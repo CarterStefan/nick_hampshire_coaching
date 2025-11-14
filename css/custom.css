@@ -272,7 +272,10 @@ section {
 
 /* Enhanced Hero Section */
 .hero-section {
-  position: relative;
+  position: relative;  
+  background-size: cover;
+  background-position: center;
+  background-image: url('../images/Nick_Hero_Cropped.jpg');
   display: flex;
   align-items: flex-end;
   justify-content: center;
