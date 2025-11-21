@@ -16,7 +16,8 @@
   --text-muted: rgba(249, 249, 254, 0.72);
 
   /* typography scale (only visual changes) */
-  --body-size: 0.95rem;     /* ~15.2px */
+  --body-size: 0.95rem;
+  /* ~15.2px */
   --small-size: 0.8rem;
 
   --h4-size: 1.1rem;
@@ -25,7 +26,8 @@
   --h2-size: clamp(1.5rem, 2.4vw, 1.9rem);
   --h1-size: clamp(2rem, 4vw, 2.6rem);
 
-  --lead-size: 1.15rem;     /* subtle but readable */
+  --lead-size: 1.15rem;
+  /* subtle but readable */
 }
 
 .text-white {
@@ -275,7 +277,7 @@ section {
 
 /* Enhanced Hero Section */
 .hero-section {
-  position: relative;  
+  position: relative;
   background-image: url('../images/Nick_Hero_Cropped.jpg');
   background-size: cover;
   background-position: left;
@@ -445,7 +447,7 @@ main.container {
 .service-card {
   flex: 1 1 350px;
   max-width: 500px;
-  padding: 2.5rem;
+  padding: 1.5rem;
   background: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
@@ -484,7 +486,7 @@ main.container {
 
 .service-block {
   flex: 1;
-  padding: 2.5rem;
+  padding: 1rem;
   background: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
@@ -899,7 +901,8 @@ main.container {
 @media (min-width: 992px) {
   .media-block img {
     width: 100%;
-    max-width: 400px; /* Adjust as desired */
+    max-width: 400px;
+    /* Adjust as desired */
     height: auto;
     margin: 0 auto;
     display: block;
