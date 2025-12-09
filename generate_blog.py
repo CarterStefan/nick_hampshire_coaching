@@ -82,7 +82,7 @@ INDEX_FOOTER = """
           style="font-size: 1.5rem;"></i></a>
     </div>
     <div>
-      <p>&copy; 2025 Nick Hampshire Coaching. All rights reserved.</p>
+      <p>&copy; 2025 Nick Hampshire. All rights reserved.</p>
     </div>
 
   </footer>
@@ -160,7 +160,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
           style="font-size: 1.5rem;"></i></a>
     </div>
     <div>
-      <p>&copy; 2025 Nick Hampshire Coaching. All rights reserved.</p>
+      <p>&copy; 2025 Nick Hampshire. All rights reserved.</p>
     </div>
 
   </footer>
