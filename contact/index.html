@@ -45,32 +45,38 @@
   </nav>
   <main class="container">
     <h1>Contact</h1>
-    <form class="mb-5" action="https://api.web3forms.com/submit" method="POST">
-      <div class="mb-3">
-        <input type="hidden" name="access_key" value="ca95ec5f-ee97-4d65-98b7-a3ea0b14a86a">
-
-        <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+    <div class="contact-card">
+      <div class="contact-text">
+        <h3>Let's talk and begin to take you and those around you to the next level.</h3>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+      <div class="contact-form">
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="ca95ec5f-ee97-4d65-98b7-a3ea0b14a86a">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="select" class="form-label">Primary focus</label>
+            <select class="form-select" aria-label="Default select example" name="focus" required>
+              <option value="Communication team workshop" selected>Communication team workshop</option>
+              <option value="Public speaking coaching">Public speaking coaching</option>
+              <option value="Energy and wellbeing">Energy and wellbeing</option>
+              <option value="Speaking and hosting enquiry">Speaking and hosting enquiry</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-secondary w-100">Send Message</button>
+        </form>
       </div>
-      <div class="mb-3">
-        <label for="select" class="form-label">Primary focus</label>
-        <select class="form-select" aria-label="Default select example" name="focus" required>
-          <option value="Communication team workshop" selected>Communication team workshop</option>
-          <option value="Public speaking coaching">Public speaking coaching</option>
-          <option value="Energy and wellbeing">Energy and wellbeing</option>
-          <option value="Speaking and hosting enquiry">Speaking and hosting enquiry</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Message</label>
-        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
+    </div>
   </main>
   <footer id="footer" class="bg-black text-white text-center">
     <div class="">
