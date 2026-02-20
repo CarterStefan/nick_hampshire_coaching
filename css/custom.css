@@ -651,6 +651,10 @@ main.container {
   transition: var(--transition-base);
 }
 
+.service-card .btn {
+  margin-top: auto;
+}
+
 .service-card:hover {
   border-color: rgba(86, 245, 210, 0.3);
   box-shadow: var(--shadow-xl);
