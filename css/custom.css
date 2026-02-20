@@ -409,7 +409,6 @@ section {
    ========================================================================== */
 .hero-section {
   position: relative;
-  background-image: url('../images/Nick_Hero_Cropped.jpg');
   background-size: cover;
   background-position: left;
   display: flex;
