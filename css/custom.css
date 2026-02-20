@@ -828,6 +828,9 @@ main.container {
 }
 
 #latest-blog .card-img-top {
+  height: 220px;
+  object-fit: cover;
+  width: 100%;
   transition: transform 0.3s ease;
 }
 
@@ -839,6 +842,10 @@ main.container {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+#latest-blog .card-body .card-text {
+  margin-top: auto;
 }
 
 #latest-blog .card-body .btn {
