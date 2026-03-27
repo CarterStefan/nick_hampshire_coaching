@@ -63,7 +63,6 @@
   /* ~15.2px */
   --small-size: 0.8rem;
 
-  --h4-size: 1.1rem;
   --h3-size: 1.3rem;
 
   --h2-size: clamp(1.5rem, 2.4vw, 1.9rem);
@@ -94,7 +93,6 @@
   --border-subtle: 1px solid rgba(255, 255, 255, 0.1);
   --border-medium: 1px solid rgba(255, 255, 255, 0.2);
   --border-light: 1px solid #e1e1e1;
-  --border-accent: 1px solid rgba(86, 245, 210, 0.3);
 
   /* Transitions */
   --transition-fast: all 0.2s ease;
@@ -230,7 +228,7 @@ section {
 
 .text-bg-dark {
     color: #fff !important;
-    background-color: (var(--card-bg), var(--bs-bg-opacity, 1)) !important;
+    background-color: var(--card-bg) !important;
 }
 
 
@@ -248,6 +246,12 @@ section {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  transition: filter 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  filter: brightness(0.8);
 }
 
 .bg-secondary,
@@ -258,6 +262,12 @@ section {
   font-weight: 900 !important;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  transition: filter 0.2s ease;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  filter: brightness(0.8);
 }
 
 .bg-black {
@@ -349,20 +359,6 @@ section {
   margin-left: auto;
   justify-content: flex-end;
   align-items: center;
-}
-
-.lang-button {
-  padding: 5px 10px;
-  margin: 0 2px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: white;
-}
-
-.lang-button.active {
-  background-color: var(--primary-color);
-  /* highlight color */
-  color: white;
 }
 
 /* Mobile Navigation - Collapsible menu for smaller screens */
@@ -629,7 +625,7 @@ main.container {
    11. SERVICES SECTION (Coaching Page)
    ==========================================================================
    Flexible card grid for coaching services.
-   Includes service-card, service-block, and track-card components.
+   Includes service-card and service-block components.
    Cards have hover effects with border color change and shadow.
    ========================================================================== */
 #services-overview .services-flex {
@@ -703,82 +699,20 @@ main.container {
   justify-content: center;
 }
 
-.track-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: left;
-}
-
-.track-card h4 {
-  font-family: "Elms Sans", sans-serif;
-  font-size: 1.5rem;
-  color: #fff;
-  margin-bottom: 0.75rem;
-}
-
-.track-card p {
-  font-size: 1rem;
-  color: var(--text-body);
-  margin-bottom: 1rem;
-}
-
-.track-card ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1rem;
-}
-
-.track-card li {
-  margin-bottom: 0.5rem;
-  position: relative;
-  padding-left: 1.25rem;
-}
-
-.track-card li::before {
-  content: "•";
-  color: #0d6efd;
-  position: absolute;
-  left: 0;
-}
-
-.track-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-/* Side-by-side layout on desktop */
 @media (min-width: 768px) {
   .coaching-tracks {
     flex-direction: row;
   }
-
-  .track-card {
+  .coaching-tracks .service-card {
     flex: 1;
   }
 }
-
 
 /* ==========================================================================
    12. PUBLIC SPEAKING SECTION
    ==========================================================================
    Card layout for speaking engagements and topics.
    ========================================================================== */
-.public-speaking-cards {
-  gap: 1.5rem;
-  /* spacing between cards */
-}
-
-.public-speaking-card {
-  flex: 1 1 300px;
-  /* grows and shrinks with min width */
-  max-width: 350px;
-  /* keeps cards from stretching too wide */
-}
-
-
 /* ==========================================================================
    13. TESTIMONIALS CAROUSEL
    ==========================================================================
@@ -895,21 +829,6 @@ main.container {
    ==========================================================================
    Flexible card layout for executive coaching service offerings.
    ========================================================================== */
-.executive-coaching-cards {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.executive-coaching-cards>div {
-  flex: 1 1 350px;
-  min-width: 300px;
-  max-width: 500px;
-  display: flex;
-}
-
-
 /* ==========================================================================
    17. BLOG LIST PAGE
    ==========================================================================
@@ -940,8 +859,7 @@ main.container {
   width: 100%;
 }
 
-.blog-card .col-md-4,
-.blog-card .col-md-6 {
+.blog-card-img {
   overflow: hidden;
 }
 
@@ -1029,7 +947,7 @@ main.container {
   letter-spacing: 0.5px;
 }
 
-.featured-blog-card .col-md-6 {
+.featured-card-img {
   overflow: hidden;
 }
 
@@ -1098,12 +1016,98 @@ main.container {
     max-width: 100%;
   }
 
-  .featured-blog-card .row {
+  .featured-card-row {
     flex-direction: column;
+  }
+
+  .featured-card-img,
+  .featured-card-body {
+    flex: none;
+    width: 100%;
   }
 
   .featured-blog-card img {
     height: auto;
+  }
+}
+
+/* ==========================================================================
+   FLEXBOX LAYOUT UTILITIES
+   Replaces Bootstrap .row / .col-md-* grid classes with explicit flexbox.
+   ========================================================================== */
+
+/* 3-column equal blog card grid (homepage latest posts) */
+.blog-grid {
+  display: flex;
+  gap: 1.5rem;
+}
+.blog-grid > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+@media (max-width: 767px) {
+  .blog-grid {
+    flex-direction: column;
+  }
+}
+
+/* Featured blog card: 50/50 image | content */
+.featured-card-row {
+  display: flex;
+  height: 100%;
+}
+.featured-card-img,
+.featured-card-body {
+  flex: 0 0 50%;
+  width: 50%;
+}
+.featured-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* Regular blog card: 33% image | 67% content */
+.blog-card-row {
+  display: flex;
+}
+.blog-card-img {
+  flex: 0 0 33.333%;
+  width: 33.333%;
+}
+.blog-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem;
+}
+@media (max-width: 767px) {
+  .blog-card-row {
+    flex-direction: column;
+  }
+  .blog-card-img {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* Speaking page: 50/50 image | content with gap and vertical centering */
+.two-col-layout {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.two-col-layout > * {
+  flex: 1;
+}
+@media (max-width: 767px) {
+  .two-col-layout {
+    flex-direction: column;
+  }
+  .two-col-layout > *:first-child {
+    margin-bottom: 1rem;
   }
 }
 
@@ -1293,17 +1297,6 @@ main.container {
   display: block;
   border-radius: var(--radius-md);
 }
-
-/* Responsive spacing utilities (optional) */
-.py-5 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.mb-3 {
-  margin-bottom: 1rem;
-}
-
 
 /* ==========================================================================
    21. BLOG ARTICLE STYLES

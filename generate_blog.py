@@ -22,8 +22,20 @@ INDEX_HEADER = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:image" content="https://nickhampshire.com/images/Nick_Hero.jpg" />
-  <title>Nick Hampshire Coaching - Blog</title>
+  <title>Blog — Nick Hampshire Coaching</title>
+  <meta name="description" content="Insights on communication, leadership and personal performance from Nick Hampshire — coach, speaker and event host.">
+  <link rel="canonical" href="https://nickhampshire.com/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nickhampshire.com/blog/">
+  <meta property="og:title" content="Blog — Nick Hampshire Coaching">
+  <meta property="og:description" content="Insights on communication, leadership and personal performance from Nick Hampshire — coach, speaker and event host.">
+  <meta property="og:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Nick Hampshire Coaching">
+  <meta name="twitter:description" content="Insights on communication, leadership and personal performance from Nick Hampshire — coach, speaker and event host.">
+  <meta name="twitter:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
   <link rel="icon" type="image/x-icon" href="../images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,8 +111,20 @@ POST_TEMPLATE = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:image" content="https://nickhampshire.com/images/Nick_Hero.jpg" />
-  <title>Nick Hampshire Coaching - Blog</title>
+  <title>{title} — Nick Hampshire</title>
+  <meta name="description" content="{subtitle}">
+  <link rel="canonical" href="https://nickhampshire.com/blog/{slug}.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://nickhampshire.com/blog/{slug}.html">
+  <meta property="og:title" content="{title} — Nick Hampshire">
+  <meta property="og:description" content="{subtitle}">
+  <meta property="og:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title} — Nick Hampshire">
+  <meta name="twitter:description" content="{subtitle}">
+  <meta name="twitter:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
   <link rel="icon" type="image/x-icon" href="../images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,11 +132,30 @@ POST_TEMPLATE = """<!DOCTYPE html>
     href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Bebas+Neue&display=swap"
     rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="../css/custom.css" rel="stylesheet">
-</head>
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{title}",
+    "description": "{subtitle}",
+    "datePublished": "{date}",
+    "author": {{
+      "@type": "Person",
+      "name": "Nick Hampshire",
+      "url": "https://nickhampshire.com"
+    }},
+    "publisher": {{
+      "@type": "Person",
+      "name": "Nick Hampshire",
+      "url": "https://nickhampshire.com"
+    }},
+    "url": "https://nickhampshire.com/blog/{slug}.html"
+  }}
+  </script>
 </head>
 <body>
  <nav class="navbar navbar-expand-lg">
@@ -198,11 +241,11 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
         index_html += f"""
         <a href="{slug}.html" class="text-decoration-none text-reset">
         <div class="card mb-4 text-bg-dark featured-blog-card">
-          <div class="row g-0 h-100">
-            <div class="col-md-6">
+          <div class="featured-card-row">
+            <div class="featured-card-img">
               <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded" alt="{entry.title}">
             </div>
-            <div class="col-md-6 d-flex flex-column justify-content-center p-4">
+            <div class="featured-card-body">
               <h2 class="card-title">{entry.title}</h2>
               <p class="card-subtitle mb-2">{subtitle}</p>
               <p class="card-text"><small class="">{date}</small></p>              
@@ -216,11 +259,11 @@ for i, entry in enumerate(feed.entries[:20]):  # only latest 20
         index_html += f"""
         <a href="{slug}.html" class="text-decoration-none text-reset">
         <div class="card mb-3 text-bg-dark blog-card">
-          <div class="row g-0">
-            <div class="col-md-4">
+          <div class="blog-card-row">
+            <div class="blog-card-img">
               <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded-top" alt="{entry.title}">
             </div>
-            <div class="col-md-8 d-flex flex-column justify-content-center p-3">
+            <div class="blog-card-content">
               <h5 class="card-title">{entry.title}</h5>
               <p class="card-subtitle mb-2">{subtitle}</p>
               <p class="card-text"><small class="">{date}</small></p>
@@ -247,7 +290,10 @@ for i, entry in enumerate(feed.entries, start=1):
     [s.extract() for s in soup(["script", "iframe"])]  # remove scripts
     clean_content = str(soup)
 
-    html = POST_TEMPLATE.format(title=entry.title, date=date, content=clean_content)
+    raw_subtitle = entry.get("summary", "")
+    subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else "Insights on communication, leadership and personal performance from Nick Hampshire."
+
+    html = POST_TEMPLATE.format(title=entry.title, date=date, content=clean_content, subtitle=subtitle, slug=slug)
     with open(os.path.join(BLOG_DIR, f"{slug}.html"), "w", encoding="utf-8") as f:
         f.write(html)
 
@@ -257,7 +303,7 @@ for i, entry in enumerate(feed.entries, start=1):
 latest_posts = feed.entries[:3]
 cards_html = '<section id="latest-blog" class="container my-5">\n'
 cards_html += '  <h2 class="mb-4">Latest from the Blog</h2>\n'
-cards_html += '  <div class="row g-4">\n'
+cards_html += '  <div class="blog-grid">\n'
 
 for entry in latest_posts:
     slug = slugify(entry.title)
@@ -281,9 +327,9 @@ for entry in latest_posts:
     subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else ""
 
     cards_html += f"""
-    
-    <div class="col-md-4">
-    <a href="blog/{slug}.html" class="text-decoration-none text-reset">    
+
+    <div>
+    <a href="blog/{slug}.html" class="text-decoration-none text-reset">
       <div class="card h-100 text-bg-dark">
         {img_html}
         <div class="card-body">
@@ -294,7 +340,7 @@ for entry in latest_posts:
       </div>
       </a>
     </div>
-    
+
     """
 
 cards_html += "  </div>\n</section>\n"
