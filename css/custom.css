@@ -794,33 +794,163 @@ main.container {
 /* ==========================================================================
    15. FOOTER
    ==========================================================================
-   Site footer with secondary gradient background.
-   Contains social media icons with hover effects.
+   Four-column footer: brand | navigate | services | connect.
+   Collapses to 2x2 on tablet, single column on mobile.
    ========================================================================== */
 #footer {
   font-size: 1rem;
   background: var(--secondary-gradient) !important;
+  padding: 3rem 3rem 0;
+  flex-shrink: 0;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+  padding-bottom: 2.5rem;
+}
+
+.footer-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 1.5em;
-  padding: 3em;
-  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+.footer-heading {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin: 0 0 0.25rem;
+}
+
+.footer-brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.footer-brand-tagline {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 0.25rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition-base);
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-connect-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.footer-cta-btn {
+  display: inline-block;
+  background: var(--primary-color);
+  color: var(--black) !important;
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  text-decoration: none !important;
+  transition: var(--transition-base);
+  text-align: center;
+}
+
+.footer-cta-btn:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+}
+
+.footer-secondary-link {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+
+.footer-secondary-link:hover {
+  color: var(--primary-color);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.25rem 0;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--small-size);
+  margin: 0;
 }
 
 .social-icon {
   color: white;
-  margin: 0.5em;
-  padding: 0.75em;
+  margin: 0.25em;
+  padding: 0.5em;
+  font-size: 1.35rem;
   border-radius: var(--radius-md);
   transition: var(--transition-base);
+  text-decoration: none;
 }
 
 .social-icon:hover {
   color: var(--primary-color);
   transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  #footer {
+    padding: 2rem 2rem 0;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
 
 
@@ -1450,16 +1580,18 @@ article figcaption {
 
 .contact-form .form-control,
 .contact-form .form-select {
-  background: var(--white);
-  border: var(--border-medium);
-  color: var(--black);
+  background: #1C1430;
+  border: 1px solid rgba(159, 237, 237, 0.2);
+  color: var(--white);
   border-radius: var(--radius-md);
 }
 
 .contact-form .form-control:focus,
 .contact-form .form-select:focus {
-  background: var(--white);
-  color: var(--black);
+  background: #1C1430;
+  border-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0 0 0 0.2rem rgba(159, 237, 237, 0.15);
 }
 
 .contact-form .form-label {
