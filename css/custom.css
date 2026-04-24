@@ -1221,6 +1221,22 @@ main.container {
     flex: none;
     width: 100%;
   }
+  .featured-card-row {
+    flex-direction: column;
+  }
+  .featured-card-img,
+  .featured-card-body {
+    flex: none;
+    width: 100%;
+  }
+  .featured-card-img {
+    min-height: 220px;
+  }
+  .featured-blog-card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 /* Speaking page: 50/50 image | content with gap and vertical centering */
