@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "WebFetch(domain:fonts.googleapis.com)",
+      "Bash(python \"C:\\\\Users\\\\carte\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-carte-nick-hampshire-coaching-1\\\\03ec9bac-4ed6-4eb1-a093-db469889c07d\\\\scratchpad\\\\update_blog_pages.py\")",
+      "Bash(python -c ' *)",
+      "Bash(python -m http.server 8080 --directory \"c:/Users/carte/nick_hampshire_coaching-1\")"
     ]
   }
 }

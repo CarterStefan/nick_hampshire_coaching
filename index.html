@@ -21,9 +21,6 @@
   <link rel="icon" type="image/x-icon" href="/images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Bebas+Neue&display=swap"
-    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -67,8 +64,8 @@
           <li class="nav-item"><a class="nav-link" href="/speaking">Speaking</a></li>
           <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-          <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
-              href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a>
+          <li class="nav-item"><a class="btn btn-primary btn-sm"
+              href="https://calendly.com/nickhampshire1/chat" target="_blank" rel="noopener">Book a call</a>
           </li>
         </ul>
       </div>
@@ -82,13 +79,14 @@
   <header id="hero" class="hero-section d-flex align-items-end justify-content-start text-start">
     <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
     <div class="container position-relative text-white">
-      <h1 class="">Confidence in communication. <br>Energy in leadership. <br>Performance at your peak.
+      <p class="hero-eyebrow">Public speaking coaching • Speaking & events • Health & performance</p>
+      <h1 class="">Confidence in communication. <br>Energy in leadership. <br><span class="accent">Performance at
+          your peak.</span>
       </h1>
-      <p class="lead">Public speaking coaching • Speaking & events • Health & performance</p>
       <div class="hero-buttons">
-        <a href="/coaching" class="btn btn-primary btn-xl">Learn more</a>
-        <a href="https://calendly.com/nickhampshire1/chat" target="blank" class="btn btn-secondary btn-xl">Book a
-          strategy call</a>
+        <a href="https://calendly.com/nickhampshire1/chat" target="_blank" rel="noopener"
+          class="btn btn-primary btn-xl">Book a strategy call</a>
+        <a href="/coaching" class="btn btn-secondary btn-xl">Learn more</a>
       </div>
     </div>
   </header>
@@ -98,20 +96,19 @@
   <!-- CLIENTS_SECTION_START -->
 
   <section id="clients" class="container">
-    <h2 class="text-center client-header">Trusted by global leaders</h2>
+    <p class="eyebrow text-center client-header">Trusted by global leaders</p>
     <div class="d-flex flex-wrap justify-content-center align-items-center gap-5">
       <div class="text-center">
-        <i class="bi bi-amazon client-logo" alt="Amazon" style="font-size: 5em;"></i>
+        <i class="bi bi-amazon client-logo" role="img" aria-label="Amazon"></i>
       </div>
       <div class="text-center">
-        <img src="./images/salesforce.png" alt="Salesforce" class="img-fluid client-logo" style="max-height: 100px;">
+        <img src="./images/salesforce.png" alt="Salesforce" class="client-logo">
       </div>
       <div class="text-center">
-        <img src="./images/bp.png" alt="BP" class="img-fluid client-logo" style="max-height: 100px;">
+        <img src="./images/bp.png" alt="BP" class="client-logo">
       </div>
       <div class="text-center">
-        <img src="./images/IE_University.png" alt="IE_University" class="img-fluid client-logo"
-          style="max-height: 100px;">
+        <img src="./images/IE_University.png" alt="IE University" class="client-logo">
       </div>
     </div>
   </section>
@@ -120,13 +117,15 @@
 
   <!-- INTRODUCTION_SECTION_START -->
 
-  <section id="introduction" class="container">
+  <section id="introduction" class="band">
+    <div class="container">
     <div class="introduction-content">
       <div class="">
         <img src="images/Nick_Profile.jpg" alt="Nick Hampshire" class="profile-img img-fluid rounded">
       </div>
       <div class="">
-        <h2 class="text-primary">Hi! I'm Nick!</h2>
+        <p class="eyebrow">About</p>
+        <h2>Hi! I'm Nick!</h2>
         <p class="about-text">For almost two decades I've helped businesses and professionals to unlock their full
           potential.
           
@@ -138,6 +137,7 @@
         </p>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- INTRODUCTION_SECTION_END -->
@@ -145,13 +145,16 @@
   <!-- SERVICES_OVERVIEW_SECTION_START -->
 
   <section id="services-overview" class="container my-5">
-    <h2 class="mb-4">Work with me</h2>
+    <div class="section-head">
+      <p class="eyebrow">Services</p>
+      <h2>Work with me</h2>
+    </div>
 
     <div class="services-flex">
 
       <!-- Section 1 – Flagship Service -->
       <div class="service-card">
-        <h3 class="text-primary">Public speaking coaching</h3>
+        <h3>Public speaking coaching</h3>
         <h5>Communication & Public Speaking Consulting for Leadership Teams</h5>
         <ul>
           <li>Interactive team workshops</li>
@@ -159,12 +162,12 @@
           <li>Storytelling and influence for leaders</li>
           <li><strong>Focus:</strong> business presentations, pitches, investor meetings, conferences</li>
         </ul>
-        <a href="/coaching" class="btn btn-primary">Learn More</a>
+        <a href="/coaching" class="btn btn-secondary">Learn More</a>
       </div>
 
       <!-- Section 2 – 1:1 Executive Coaching -->
       <div class="service-card">
-        <h3 class="text-primary">1:1 Executive Coaching</h3>
+        <h3>1:1 Executive Coaching</h3>
 
         <h5 class="mt-3">Public Speaking Coaching</h5>
         <ul>
@@ -177,11 +180,11 @@
           <li>Mindset, fitness, recovery, resilience</li>
           <li>Stress management & high-performance routines</li>
         </ul>
-        <a href="/coaching" class="btn btn-primary">Learn More</a>
+        <a href="/coaching" class="btn btn-secondary">Learn More</a>
       </div>
 
       <div class="service-card">
-        <h3 class="text-primary">Speaking & Hosting</h3>
+        <h3>Speaking & Hosting</h3>
 
         <h5 class="mt-3">Engaging, inspiring, and informative speaking for your next event</h5>
         <ul>
@@ -189,7 +192,7 @@
           <li>Conferences & Summits</li>
           <li>Charity events</li>
         </ul>
-        <a href="/coaching" class="btn btn-primary">Learn More</a>
+        <a href="/coaching" class="btn btn-secondary">Learn More</a>
       </div>
 
     </div>
@@ -202,29 +205,34 @@
 
   <!-- CUSTOMER_REVIEWS_CAROUSEL_SECTION_START -->
 
-  <section id="testimonials" class="container">
+  <section id="testimonials" class="band">
+    <div class="container">
+    <div class="section-head text-center">
+      <p class="eyebrow">Testimonials</p>
+      <h2>What clients say</h2>
+    </div>
     <!-- Carousel wrapper -->
-    <div id="carouselTestimonials" class="carousel slide text-center carousel-dark" data-bs-ride="carousel">
+    <div id="carouselTestimonials" class="carousel slide text-center" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="avatar" src="/images/Testimonial_1.jpg" alt="avatar" style="width: 150px;" />
+          <img class="avatar" src="/images/Testimonial_1.jpg" alt="avatar" />
           <div class="d-flex justify-content-center">
-            <div class="testimonial-content" style="max-width: 800px;">
+            <div class="testimonial-content">
               <p class="">
                 <i class="fas fa-quote-left pe-2 quote"></i>
                 Working with Nick was a joy! He has a wealth of knowledge about fitness and diet, yet is super
                 approachable and easy to work with. I would highly recommend him as a trainer - however big or small the
                 changes are that you want to make.
               </p>
-              <h5 class="mb-3 text-muted">Sarah Datta</h5>
+              <h5 class="mb-3">Sarah Datta</h5>
               <p class="text-muted">Founder & director - Financial Content Lab</p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="avatar" src="/images/Testimonial_5.jpg" alt="avatar" style="width: 150px;" />
+          <img class="avatar" src="/images/Testimonial_5.jpg" alt="avatar" />
           <div class="d-flex justify-content-center">
-            <div class="testimonial-content" style="max-width: 800px;">
+            <div class="testimonial-content">
               <p class="">
                 <i class="fas fa-quote-left pe-2 quote"></i>
                 I worked closely with Nick for public speaking coaching, and his guidance was pivotal in enhancing my
@@ -236,69 +244,69 @@
                 based on my business goals and messaging, I can't recommend Nick enough for any business seeking to
                 elevate their presentation skills.
               </p>
-              <h5 class="mb-3 text-muted">Alejandro Cabrera Muñoz</h5>
+              <h5 class="mb-3">Alejandro Cabrera Muñoz</h5>
               <p class="text-muted">CEO & founder - Green Eagle Solutions</p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="avatar" src="/images/Testimonial_6.jpg" alt="avatar" style="width: 150px;" />
+          <img class="avatar" src="/images/Testimonial_6.jpg" alt="avatar" />
           <div class="d-flex justify-content-center">
-            <div class="testimonial-content" style="max-width: 800px;">
+            <div class="testimonial-content">
               <p class="">
                 <i class="fas fa-quote-left pe-2 quote"></i>
                 I have known Nick for several years and I am impressed by his energy, thirst for knowledge and his
                 ability to motivate and coach others. A great team player.
               </p>
-              <h5 class="mb-3 text-muted">Frank Bell</h5>
+              <h5 class="mb-3">Frank Bell</h5>
               <p class="text-muted">Senior Partner & Co founder - IN-SYNC Group</p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="avatar" src="/images/Testimonial_2.jpg" alt="avatar" style="width: 150px;" />
+          <img class="avatar" src="/images/Testimonial_2.jpg" alt="avatar" />
           <div class="d-flex justify-content-center">
-            <div class="testimonial-content" style="max-width: 800px;">
+            <div class="testimonial-content">
               <p class="">
                 <i class="fas fa-quote-left pe-2 quote"></i>
                 Nick is a passionate speaker on running and its benefits. During the PSAS Sprint, he refined his
                 delivery, applied feedback effectively, and developed a structured, impactful style. His dedication and
                 enthusiasm make him a powerful communicator.
               </p>
-              <h5 class="mb-3 text-muted">Ian Gibbs</h5>
+              <h5 class="mb-3">Ian Gibbs</h5>
               <p class="text-muted">Keynote speaker - The learnability man</p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="avatar" src="/images/Testimonial_7.jpg" alt="avatar" style="width: 150px;" />
+          <img class="avatar" src="/images/Testimonial_7.jpg" alt="avatar" />
           <div class="d-flex justify-content-center">
-            <div class="testimonial-content" style="max-width: 800px;">
+            <div class="testimonial-content">
               <p class="">
                 <i class="fas fa-quote-left pe-2 quote"></i>
                 We've had the pleasure of collaborating with Nick for nearly five years in the world of presenting and
                 public speaking coaching. Nick delivers great programming in English. Our clients are very happy with
                 him and always ask for him!
               </p>
-              <h5 class="mb-3 text-muted">
+              <h5 class="mb-3">
                 Eric Poris</h5>
               <p class="text-muted">Owner & Founder - Easyworld Academy</p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="avatar" src="/images/Testimonial_3.jpg" alt="avatar" style="width: 150px;" />
+          <img class="avatar" src="/images/Testimonial_3.jpg" alt="avatar" />
           <div class="d-flex justify-content-center">
-            <div class="testimonial-content" style="max-width: 800px;">
+            <div class="testimonial-content">
               <p class="">
                 <i class="fas fa-quote-left pe-2 quote"></i>
                 It's great to be a student with Nick. He has improved my public speaking skills and since I began
                 studying with him, I feel more
                 confident when speaking in front of people. It's
                 great how
-                he makes me remember all the techniques that he teaught me and how useful these techniques are.
+                he makes me remember all the techniques that he taught me and how useful these techniques are.
               </p>
-              <h5 class="mb-3 text-muted">
+              <h5 class="mb-3">
                 José Ramón Crespo González</h5>
               <p class="text-muted">Telecommunications Engineer</p>
             </div>
@@ -316,6 +324,7 @@
       </button>
     </div>
     <!-- Carousel wrapper -->
+    </div>
   </section>
 
   <!-- CUSTOMER_REVIEWS_CAROUSEL_SECTION_END -->
@@ -324,9 +333,27 @@
 
   <!-- BLOG_SECTION_START -->
 <section id="latest-blog" class="container my-5">
-  <h2 class="mb-4">Latest from the Blog</h2>
+  <div class="section-head">
+    <p class="eyebrow">Insights</p>
+    <h2>Latest from the Blog</h2>
+  </div>
   <div class="blog-grid">
 
+
+    <div>
+    <a href="blog/calmness-under-pressure.html" class="text-decoration-none text-reset">
+      <div class="card h-100 text-bg-dark">
+        <img src="images/Nick_Pensive.jpg" class="card-img-top" alt="Calmness under pressure">
+        <div class="card-body">
+          <h5 class="card-title">Calmness under pressure</h5>
+          <p class="card-subtitle">Argentina taught England a lesson last night. This was their secret weapon.</p>
+          <p class="card-text">Jul 16, 2026</p>
+        </div>
+      </div>
+      </a>
+    </div>
+
+    
 
     <div>
     <a href="blog/self-doubt-so-what.html" class="text-decoration-none text-reset">
@@ -356,21 +383,6 @@
       </a>
     </div>
 
-    
-
-    <div>
-    <a href="blog/an-uncertain-life.html" class="text-decoration-none text-reset">
-      <div class="card h-100 text-bg-dark">
-        <img src="https://substackcdn.com/image/fetch/$s_!Fuzc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fca118b7c-cf97-41a2-a273-780039dfd425_3108x1952.jpeg" class="card-img-top" alt="An Uncertain Life">
-        <div class="card-body">
-          <h5 class="card-title">An Uncertain Life</h5>
-          <p class="card-subtitle">Why we must embrace uncertainty and stop fearing it.</p>
-          <p class="card-text">Jun 04, 2026</p>
-        </div>
-      </div>
-      </a>
-    </div>
-
       </div>
 </section>
 
@@ -379,7 +391,10 @@
   <!-- GALLERY_SECTION_START -->
 
   <section id="gallery" class="container my-5">
-    <h2 class="mb-4">Gallery</h2>
+    <div class="section-head">
+      <p class="eyebrow">In action</p>
+      <h2>Gallery</h2>
+    </div>
     <div class="gallery-masonry">
       <div class="gallery-item">
         <img src="images/Nick_Speaking.jpg" alt="Nick speaking at an event" loading="lazy">
@@ -479,6 +494,7 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
 
   <!-- FOOTER_SECTION_END -->
 </body>

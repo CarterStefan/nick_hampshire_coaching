@@ -39,9 +39,6 @@ INDEX_HEADER = """<!DOCTYPE html>
   <link rel="icon" type="image/x-icon" href="../images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Bebas+Neue&display=swap"
-    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -64,14 +61,17 @@ INDEX_HEADER = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../speaking">Speaking</a></li>
           <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
-          <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
-              href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a></li>
+          <li class="nav-item"><a class="btn btn-primary btn-sm"
+              href="https://calendly.com/nickhampshire1/chat" target="_blank" rel="noopener">Book a call</a></li>
         </ul>
       </div>
     </div>
   </nav>
   <main class="container mt-5">
-    
+    <div class="section-head">
+      <p class="eyebrow">Insights on communication, leadership &amp; performance</p>
+      <h1>The Blog</h1>
+    </div>
     <div class="blog-list-group">
 """
 
@@ -127,6 +127,7 @@ INDEX_FOOTER = """
   <!-- FOOTER_SECTION_END -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
 """
@@ -153,9 +154,6 @@ POST_TEMPLATE = """<!DOCTYPE html>
   <link rel="icon" type="image/x-icon" href="../images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Bebas+Neue&display=swap"
-    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -198,8 +196,8 @@ POST_TEMPLATE = """<!DOCTYPE html>
           <li class="nav-item"><a class="nav-link" href="../speaking">Speaking</a></li>
           <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
-          <li class="nav-item"><a class="btn btn-secondary btn-sm rounded"
-              href="https://calendly.com/nickhampshire1/chat" target="blank">Book a call</a></li>
+          <li class="nav-item"><a class="btn btn-primary btn-sm"
+              href="https://calendly.com/nickhampshire1/chat" target="_blank" rel="noopener">Book a call</a></li>
         </ul>
       </div>
     </div>
@@ -258,6 +256,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
 """
@@ -352,7 +351,7 @@ for i, entry in enumerate(feed.entries, start=1):
 # --- Update homepage with latest 3 ---
 latest_posts = feed.entries[:3]
 cards_html = '<section id="latest-blog" class="container my-5">\n'
-cards_html += '  <h2 class="mb-4">Latest from the Blog</h2>\n'
+cards_html += '  <div class="section-head">\n    <p class="eyebrow">Insights</p>\n    <h2>Latest from the Blog</h2>\n  </div>\n'
 cards_html += '  <div class="blog-grid">\n'
 
 for entry in latest_posts:
