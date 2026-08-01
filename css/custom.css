@@ -612,6 +612,11 @@ img.client-logo {
   object-fit: contain;
 }
 
+/* Long wordmarks (no symbol) need extra width to reach the same optical cap height */
+img.client-logo.client-logo--wide {
+  max-width: 150px;
+}
+
 i.client-logo {
   font-size: 2.75rem;
   line-height: 1;
