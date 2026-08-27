@@ -41,39 +41,39 @@
 :root {
   /* Brand Colors */
   --primary-color: #9FEDED;   /* the single brand teal: eyebrows, links, accents, primary CTAs */
-  --secondary-color: #7A3EE3; /* purple: reserved for small accents (avatar rings, quotes, tints) */
+  --secondary-color: #7A3EE3; /* brand purple, bright: solid marks only (avatar rings,
+                                 quote glyphs). Never as a tint, haze or glow. */
   --blue: #45A8F0;
   --white: #F9F9FE;
 
   /* Dark Theme Colors */
   --black: #0F0A1A;             /* near-black purple */
   --background-color: #0F0A1A;  /* page background */
-  --surface-color: #181024;     /* panels/sections */
-  --card-bg: #221837;           /* cards */
+  --surface-color: #201533;     /* bands + footer, one step up from the page */
+  --card-bg: #2C1E45;           /* cards, one step up from bands */
 
   /* accessibility-aware muted and body text */
   --text-body: rgba(249, 249, 254, 0.95);
   --text-muted: rgba(249, 249, 254, 0.72);
 
-  /* typography scale */
-  --body-size: 1.05rem;
-  --small-size: 0.8rem;
+  /* Type scale. Every font-size in this file resolves to one of these seven
+     rungs. Two deliberate exceptions are marked in place, at .navbar-brand and
+     i.client-logo, where the value sizes a glyph to match a neighbouring
+     image rather than setting type. */
+  --text-xs: 0.8rem;                        /* tags, dates, micro labels */
+  --text-sm: 0.9rem;                        /* captions, meta, footer links */
+  --text-base: 1.05rem;                     /* body copy, buttons, nav */
+  --text-lg: 1.2rem;                        /* leads, card titles, pull quotes */
+  --text-xl: 1.5rem;                        /* h3 */
+  --text-2xl: clamp(1.75rem, 3vw, 2.5rem);  /* h2 */
+  --text-3xl: clamp(2.5rem, 5vw, 3.5rem);   /* h1 */
 
-  --h3-size: 1.5rem;
-
-  --h2-size: clamp(1.75rem, 3vw, 2.5rem);
-  --h1-size: clamp(2.5rem, 5vw, 3.5rem);
-
-  --lead-size: 1.2rem;
-
-  /* Border Radius Scale: 8px for controls, 16px for cards/surfaces */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 16px;
-  --radius-2xl: 16px;
-  --radius-full: 50%;
-  --radius-pill: 16px;
+  /* Radius. Four rungs, four distinct values. */
+  --radius-sm: 4px;      /* focus rings, small inline elements */
+  --radius-md: 8px;      /* buttons, inputs, mobile nav panel */
+  --radius-lg: 16px;     /* cards and surfaces */
+  --radius-pill: 999px;  /* tags */
+  --radius-full: 50%;    /* avatars */
 
   /* Box Shadows */
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -81,9 +81,7 @@
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.3);
   --shadow-xl: 0 15px 40px rgba(0, 0, 0, 0.2);
   --shadow-carousel: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --shadow-avatar: 0 8px 20px rgba(122, 62, 227, 0.3);
   --shadow-focus: 0 0 0 0.25rem rgba(159, 237, 237, 0.4);
-  --shadow-btn-hover: 0 8px 20px rgba(159, 237, 237, 0.18);
 
   /* Borders */
   --border-subtle: 1px solid rgba(255, 255, 255, 0.1);
@@ -156,7 +154,7 @@ body {
   background: var(--background-color);
   color: var(--text-body);
   line-height: 1.6;
-  font-size: var(--body-size);
+  font-size: var(--text-base);
 }
 
 
@@ -179,32 +177,42 @@ h6 {
 }
 
 h1 {
-  font-size: var(--h1-size);
+  font-size: var(--text-3xl);
   margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: var(--h2-size);
+  font-size: var(--text-2xl);
   margin-bottom: 1.5rem;
 }
 
-/* Small teal label above section headings */
+/* Section labels. Reserved for the one place a heading cannot carry the label
+   itself: the client logo strip, which has no heading of its own. If you find
+   yourself adding one above an h2 that already says the same thing, delete it
+   and let the heading do the work. */
 .eyebrow {
   display: block;
   color: var(--primary-color);
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
-.section-head {
-  margin-bottom: 2.5rem;
+/* Who a service is for. Carries real information the heading does not, so it
+   stays, but it reads as plain text rather than borrowing editorial authority
+   from tracked uppercase. */
+.service-audience {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
-.section-head .eyebrow {
-  margin-bottom: 0.5rem;
+.section-head {
+  margin-bottom: 2.5rem;
 }
 
 .section-head h2 {
@@ -214,7 +222,7 @@ h2 {
 .section-head .section-lead {
   margin: 1rem 0 0;
   max-width: 60ch;
-  font-size: var(--lead-size);
+  font-size: var(--text-lg);
   color: var(--text-muted);
 }
 
@@ -271,11 +279,13 @@ section[id] {
     background-color: var(--card-bg) !important;
 }
 
-/* Full-width alternating surface band — gives the page rhythm between flat sections */
+/* Band sections share the footer's surface: same background, same hairline.
+   Bands and footer are one secondary surface, distinct from the page ground
+   and from cards. Kept quiet on purpose. */
 .band {
   background: var(--surface-color);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 4.5rem 0;
 }
 
@@ -301,7 +311,6 @@ section[id] {
 .btn-primary:focus {
   filter: brightness(1.06);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-btn-hover);
 }
 
 /* Ghost button: the quiet secondary action */
@@ -322,18 +331,13 @@ section[id] {
   transform: translateY(-2px);
 }
 
-.bg-secondary {
-  background: var(--secondary-color) !important;
-  color: var(--white) !important;
-}
-
 .bg-black {
   background-color: var(--surface-color) !important;
 }
 
 .btn-xl {
   padding: 1rem 2rem;
-  font-size: 1.05rem;
+  font-size: var(--text-base);
   border-radius: var(--radius-md);
   font-family: "Elms Sans", sans-serif;
 }
@@ -370,7 +374,7 @@ section[id] {
 .navbar .navbar-brand,
 .navbar .nav-link {
   color: var(--text-body) !important;
-  font-size: 18px;
+  font-size: var(--text-base);
   font-weight: 500;
   transition: var(--transition-base);
 }
@@ -425,8 +429,8 @@ section[id] {
 /* Mobile Navigation - Collapsible menu for smaller screens */
 @media (max-width: 991.98px) {
   .navbar-collapse {
-    background: rgba(24, 16, 36, 0.98);
-    border-radius: 10px;
+    background: rgba(32, 21, 51, 0.98);
+    border-radius: var(--radius-md);
     margin-top: var(--spacing-sm);
     padding: var(--spacing-md);
     border: var(--border-subtle);
@@ -520,7 +524,7 @@ section[id] {
 
 .hero-eyebrow {
   color: var(--primary-color);
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -593,7 +597,7 @@ section[id] {
 }
 
 .lead {
-  font-size: var(--lead-size);
+  font-size: var(--text-lg);
   font-family: "Elms Sans", sans-serif;
   font-weight: 400;
   color: var(--text-muted);
@@ -664,7 +668,7 @@ i.client-logo {
   /* still cap it for larger screens */
   height: auto;
   /* keeps aspect ratio */
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   transition: var(--transition-transform);
 }
@@ -680,7 +684,7 @@ i.client-logo {
 }
 
 .about-text {
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
   line-height: 1.6;
   color: var(--text-body);
 }
@@ -712,24 +716,10 @@ i.client-logo {
   padding: var(--spacing-lg);
   background: var(--card-bg);
   border: var(--border-subtle);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   transition: var(--transition-base);
-}
-
-/* Teal hairline that lights up along the top edge on hover */
-.service-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
 /* Buttons inside cards hug their content and pin to the bottom edge */
@@ -748,23 +738,6 @@ i.client-logo {
   transform: translateY(-6px);
   border-color: rgba(159, 237, 237, 0.35);
   box-shadow: var(--shadow-xl);
-}
-
-.service-card:hover::before,
-.service-card:focus-within::before {
-  opacity: 0.7;
-}
-
-.service-card:hover .service-icon,
-.service-card:focus-within .service-icon {
-  background: rgba(159, 237, 237, 0.18);
-  border-color: rgba(159, 237, 237, 0.5);
-}
-
-.service-card:hover .service-icon-purple,
-.service-card:focus-within .service-icon-purple {
-  background: rgba(122, 62, 227, 0.26);
-  border-color: rgba(122, 62, 227, 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -792,28 +765,24 @@ i.client-logo {
   padding: var(--spacing-xl);
   background: var(--card-bg);
   border: var(--border-subtle);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   transition: var(--transition-base);
 }
 
-/* Feature treatment for the flagship offer: soft purple glow + stronger border */
+/* Feature treatment for the flagship offer: a brighter border does the work,
+   no tinted haze behind it. */
 .service-feature {
-  background:
-    radial-gradient(120% 130% at 100% 0%, rgba(122, 62, 227, 0.18) 0%, rgba(122, 62, 227, 0) 55%),
-    var(--card-bg);
+  background: var(--card-bg);
   border: 1px solid rgba(159, 237, 237, 0.2);
 }
 
 .service-block-head {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
   margin-bottom: 1.25rem;
 }
 
-.service-block-head .eyebrow {
+.service-block-head .service-audience {
   margin-bottom: 0.35rem;
 }
 
@@ -821,47 +790,14 @@ i.client-logo {
   margin-bottom: 0;
 }
 
-/* Tinted icon badge on service cards */
-.service-icon {
-  width: 56px;
-  height: 56px;
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  border-radius: var(--radius-md);
-  background: rgba(159, 237, 237, 0.1);
-  border: 1px solid rgba(159, 237, 237, 0.25);
-  color: var(--primary-color);
-  transition: var(--transition-base);
-}
-
-.service-card > .service-icon {
-  margin-bottom: 1.25rem;
-}
-
 .service-title {
-  font-size: var(--h3-size);
+  font-size: var(--text-xl);
   margin-bottom: 0.75rem;
 }
 
 /* Card headings sit in a narrow column, so they run a touch smaller */
 .service-card .service-title {
-  font-size: 1.3rem;
-}
-
-/* Card eyebrows sit tighter and quieter than section eyebrows */
-.service-card .eyebrow {
-  margin-bottom: 0.5rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-}
-
-.service-icon-purple {
-  background: rgba(122, 62, 227, 0.16);
-  border-color: rgba(122, 62, 227, 0.45);
-  color: #C9A6FF;
+  font-size: var(--text-lg);
 }
 
 .service-desc {
@@ -878,7 +814,7 @@ i.client-logo {
 }
 
 .service-card .feature-list {
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   margin-bottom: 1.5rem;
 }
 
@@ -898,7 +834,7 @@ i.client-logo {
 }
 
 .focus-label {
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -907,9 +843,9 @@ i.client-logo {
 }
 
 .tag {
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   padding: 0.3rem 0.8rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(159, 237, 237, 0.08);
   border: 1px solid rgba(159, 237, 237, 0.25);
   color: var(--text-body);
@@ -955,7 +891,7 @@ i.client-logo {
 }
 
 .testimonial-content p:first-of-type {
-  font-size: 1.15rem;
+  font-size: var(--text-lg);
   line-height: 1.7;
 }
 
@@ -964,12 +900,11 @@ i.client-logo {
   border: 4px solid var(--secondary-color);
   border-radius: var(--radius-full);
   margin-bottom: var(--spacing-lg);
-  box-shadow: var(--shadow-avatar);
 }
 
 .quote {
   color: var(--secondary-color);
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
 }
 
 
@@ -984,7 +919,7 @@ i.client-logo {
   flex-direction: column;
   background: var(--card-bg);
   border: var(--border-subtle);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   transition: var(--transition-base);
   overflow: hidden;
 }
@@ -1026,10 +961,8 @@ i.client-logo {
    Collapses to 2x2 on tablet, single column on mobile.
    ========================================================================== */
 #footer {
-  font-size: 1rem;
-  background:
-    linear-gradient(180deg, rgba(122, 62, 227, 0.1) 0%, rgba(122, 62, 227, 0) 45%),
-    var(--surface-color) !important;
+  font-size: var(--text-base);
+  background: var(--surface-color) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 3.5rem 3rem 0;
   flex-shrink: 0;
@@ -1052,7 +985,7 @@ i.client-logo {
 }
 
 .footer-heading {
-  font-size: 0.7rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1061,7 +994,7 @@ i.client-logo {
 }
 
 .footer-brand-name {
-  font-size: 1.15rem;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--white);
   margin: 0;
@@ -1069,7 +1002,7 @@ i.client-logo {
 }
 
 .footer-brand-tagline {
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
   line-height: 1.5;
@@ -1094,7 +1027,7 @@ i.client-logo {
 .footer-links a {
   color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   transition: var(--transition-base);
 }
 
@@ -1103,7 +1036,7 @@ i.client-logo {
 }
 
 .footer-connect-text {
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.75);
   margin: 0;
   line-height: 1.5;
@@ -1114,7 +1047,7 @@ i.client-logo {
   background: var(--primary-color);
   color: var(--black) !important;
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   padding: 0.6rem 1.25rem;
   border-radius: var(--radius-md);
   text-decoration: none !important;
@@ -1128,7 +1061,7 @@ i.client-logo {
 }
 
 .footer-secondary-link {
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: var(--transition-base);
@@ -1148,7 +1081,7 @@ i.client-logo {
 
 .footer-copyright {
   color: rgba(255, 255, 255, 0.5);
-  font-size: var(--small-size);
+  font-size: var(--text-xs);
   margin: 0;
 }
 
@@ -1156,7 +1089,7 @@ i.client-logo {
   color: white;
   margin: 0.25em;
   padding: 0.5em;
-  font-size: 1.35rem;
+  font-size: var(--text-lg);
   border-radius: var(--radius-md);
   transition: var(--transition-base);
   text-decoration: none;
@@ -1213,7 +1146,7 @@ i.client-logo {
   align-items: stretch;
   margin-bottom: var(--spacing-sm);
   border: var(--border-subtle);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background-color: var(--card-bg);
   transition: var(--transition-fast);
@@ -1247,7 +1180,7 @@ i.client-logo {
 }
 
 .blog-card-title {
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   margin-bottom: 0.25rem;
   color: var(--white);
@@ -1255,14 +1188,14 @@ i.client-logo {
 }
 
 .blog-card-date {
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
 
 .blog-card a.btn {
   align-self: flex-start;
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   padding: 0.375rem 0.75rem;
 }
 
@@ -1272,7 +1205,7 @@ i.client-logo {
   width: 100%;
   margin-bottom: var(--spacing-xl);
   border: var(--border-subtle);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-lg);
   background-color: var(--card-bg);
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   padding: var(--spacing-lg);
@@ -1280,7 +1213,7 @@ i.client-logo {
 }
 
 .featured-blog-card h2 {
-  font-size: 2.25rem;
+  font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--white);
   text-transform: none;
@@ -1289,7 +1222,7 @@ i.client-logo {
 }
 
 .featured-blog-card .card-subtitle {
-  font-size: 1.125rem;
+  font-size: var(--text-lg);
   color: var(--white);
   line-height: 1.5;
   margin-bottom: 1rem;
@@ -1301,7 +1234,7 @@ i.client-logo {
 }
 
 .featured-blog-card .btn {
-  font-size: 1rem;
+  font-size: var(--text-base);
   padding: 0.75rem 1.5rem;
   text-transform: uppercase;
   font-weight: 600;
@@ -1517,7 +1450,7 @@ i.client-logo {
 .text-block,
 .media-block {
   flex: 1;
-  font-size: 1.2rem;
+  font-size: var(--text-lg);
 }
 
 /* Responsive stacking on smaller screens */
@@ -1625,13 +1558,13 @@ i.client-logo {
 
 .topic-card h3 {
   font-family: "Elms Sans", sans-serif;
-  font-size: 1.4rem;
+  font-size: var(--text-lg);
   margin-bottom: 1rem;
 }
 
 .topic-card p {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--text-base);
   line-height: 1.6;
 }
 
@@ -1700,7 +1633,7 @@ article figure {
 }
 
 article figcaption {
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   color: var(--text-muted);
   margin-top: 0.5rem;
 }
@@ -1805,7 +1738,7 @@ article figcaption {
   flex-direction: row;
   background: var(--card-bg);
   border: var(--border-subtle);
-  border-radius: var(--radius-2xl);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   margin-bottom: var(--spacing-xl);
 }
@@ -1818,7 +1751,7 @@ article figcaption {
 }
 
 .contact-text h1 {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-size: var(--text-2xl);
   line-height: 1.3;
   margin: 0;
 }
@@ -1852,7 +1785,7 @@ article figcaption {
 
 .contact-form .btn {
   padding: var(--spacing-sm);
-  font-size: 1rem;
+  font-size: var(--text-base);
   border-radius: var(--radius-md);
   margin-top: var(--spacing-sm);
 }
@@ -1922,7 +1855,7 @@ html {
 
 /* Social icon specific focus override */
 .social-icon:focus-visible {
-  color: var(--primary) !important;
+  color: var(--primary-color) !important;
   box-shadow: var(--shadow-focus) !important;
   border-radius: var(--radius-sm) !important;
 }
