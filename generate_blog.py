@@ -348,50 +348,72 @@ for i, entry in enumerate(feed.entries, start=1):
 
     print(f"✅ Generated post {i}: {entry.title} → {slug}.html")
 
-# --- Update homepage with latest 3 ---
-latest_posts = feed.entries[:3]
-cards_html = '<section id="latest-blog" class="container my-5">\n'
-cards_html += '  <div class="section-head">\n    <h2>Latest from the Blog</h2>\n  </div>\n'
-cards_html += '  <div class="blog-grid">\n'
-
-for entry in latest_posts:
+# --- Update homepage: newest post featured, next three stacked beside it ---
+def post_fields(entry):
+    """Slug, date, image src and subtitle for one entry, paths relative to
+    index.html."""
     slug = slugify(entry.title)
     date = datetime(*entry.published_parsed[:6]).strftime("%b %d, %Y")
 
-    # find first image in content
     content = entry.get("content", [{"value": entry.get("summary", "")}])[0]["value"]
-    soup = BeautifulSoup(content, "html.parser")
-    img_tag = soup.find("img")
+    img_tag = BeautifulSoup(content, "html.parser").find("img")
+    img_src = img_tag["src"] if img_tag and img_tag.get("src") else "images/Nick_Pensive.jpg"
 
-    # choose thumbnail: prefer post image, else use default
-    if img_tag and img_tag.get("src"):
-        img_src = img_tag["src"]
-    else:
-        img_src = "images/Nick_Pensive.jpg"  # relative to index.html
-
-    img_html = f'<img src="{img_src}" class="card-img-top" alt="{entry.title}">'
-
-    # Subtitle (cleaned summary, or blank if none)
     raw_subtitle = entry.get("summary", "")
     subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else ""
 
-    cards_html += f"""
+    return slug, date, img_src, subtitle
 
-    <div>
-    <a href="blog/{slug}.html" class="text-decoration-none text-reset">
-      <div class="card h-100 text-bg-dark">
-        {img_html}
-        <div class="card-body">
-          <h5 class="card-title">{entry.title}</h5>
-          <p class="card-subtitle">{subtitle}</p>
-          <p class="card-text">{date}</p>
+
+latest_posts = feed.entries[:4]
+cards_html = """<section id="latest-blog" class="container my-5">
+  <div class="section-head">
+    <h2>Latest from the Blog</h2>
+  </div>
+  <div class="blog-grid">
+"""
+
+# Newest post: full card on the left
+featured = latest_posts[0]
+f_slug, f_date, f_img, f_subtitle = post_fields(featured)
+cards_html += f"""
+    <div class="blog-featured">
+      <a href="blog/{f_slug}.html" class="text-decoration-none text-reset">
+        <div class="card h-100 text-bg-dark">
+          <img src="{f_img}" class="card-img-top" alt="{featured.title}">
+          <div class="card-body">
+            <h3 class="card-title">{featured.title}</h3>
+            <p class="card-subtitle">{f_subtitle}</p>
+            <p class="card-text">{f_date}</p>
+          </div>
         </div>
-      </div>
       </a>
     </div>
 
-    """
+    <div class="blog-recent">
+"""
 
+# The three behind it: compact cards stacked on the right
+for entry in latest_posts[1:4]:
+    slug, date, img_src, _ = post_fields(entry)
+    cards_html += f"""
+      <div class="blog-mini">
+        <a href="blog/{slug}.html" class="text-decoration-none text-reset">
+          <div class="card text-bg-dark">
+            <div class="blog-mini-row">
+              <img src="{img_src}" class="blog-mini-img" alt="{entry.title}">
+              <div class="blog-mini-body">
+                <h5 class="card-title">{entry.title}</h5>
+                <p class="card-text">{date}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+"""
+
+cards_html += """    </div>
+"""
 cards_html += "  </div>\n</section>\n"
 
 

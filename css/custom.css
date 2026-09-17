@@ -1336,18 +1336,107 @@ i.client-logo {
    Replaces Bootstrap .row / .col-md-* grid classes with explicit flexbox.
    ========================================================================== */
 
-/* 3-column equal blog card grid (homepage latest posts) */
-.blog-grid {
-  display: flex;
+/* Homepage latest posts: newest post gets a full card on the left, the three
+   behind it stack on the right. The asymmetry is the point, it says which post
+   is newest without needing a label. The right column is a 3-row grid, so the
+   stack always resolves to exactly the height of the featured card. */
+#latest-blog .blog-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
   gap: 1.5rem;
+  align-items: stretch;
 }
-.blog-grid > * {
-  flex: 1 1 0;
+
+#latest-blog .blog-featured,
+#latest-blog .blog-recent {
   min-width: 0;
 }
-@media (max-width: 767px) {
-  .blog-grid {
-    flex-direction: column;
+
+#latest-blog .blog-recent {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  min-height: 0;
+}
+
+/* Anchors are the grid children, so they carry the height down to the card */
+#latest-blog .blog-featured > a,
+#latest-blog .blog-mini > a {
+  display: block;
+  height: 100%;
+}
+
+#latest-blog .blog-mini {
+  min-height: 0;
+}
+
+#latest-blog .blog-mini .card {
+  height: 100%;
+}
+
+/* Featured card: taller image and a heading that outranks the stack */
+#latest-blog .blog-featured .card-img-top {
+  height: 300px;
+}
+
+#latest-blog .blog-featured .card-title {
+  font-size: var(--text-xl);
+}
+
+/* Stacked cards: image beside the text, title and date only */
+#latest-blog .blog-mini-row {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  min-height: 96px;
+}
+
+#latest-blog .blog-mini-img {
+  width: 110px;
+  flex: none;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+#latest-blog .blog-mini .card:hover .blog-mini-img {
+  transform: scale(1.05);
+}
+
+#latest-blog .blog-mini-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.9rem 1.1rem;
+  min-width: 0;
+}
+
+#latest-blog .blog-mini .card-title {
+  font-size: var(--text-base);
+  line-height: 1.3;
+  margin: 0;
+}
+
+#latest-blog .blog-mini .card-text {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Below the two-column breakpoint everything becomes one column. The stacked
+   cards keep their side-by-side image, which reads well at narrow widths. */
+@media (max-width: 991.98px) {
+  #latest-blog .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #latest-blog .blog-recent {
+    grid-template-rows: none;
+  }
+
+  #latest-blog .blog-featured .card-img-top {
+    height: 220px;
   }
 }
 
