@@ -1,20 +1,52 @@
-import os
-import requests
-import feedparser
-from bs4 import BeautifulSoup
-from datetime import datetime
+"""Sync the blog from Substack.
+
+    python generate_blog.py                    # latest posts from the feed
+    python generate_blog.py --rebuild-archive  # also re-render older posts on disk
+
+The feed only carries the latest 20 posts. Older posts stay in blog/ and are
+re-rendered from their own HTML with --rebuild-archive, so a template change
+reaches every post. Shared nav, footer and head assets come from partials/
+via build_partials.py, which runs at the end.
+"""
+import argparse
+import hashlib
+import html
+import json
 import re
+from dataclasses import dataclass
+from datetime import datetime
+from pathlib import Path
+
+import feedparser
+import requests
+from bs4 import BeautifulSoup
+
+import build_partials
 
 # ---------------- CONFIG ----------------
 FEED_URL = "https://nickhampshire.substack.com/feed"
-BLOG_DIR = "blog"
-HOMEPAGE = "index.html"
-PLACEHOLDER = "<!-- BLOG_SECTION -->"
+SITE_URL = "https://nickhampshire.com"
+ROOT = Path(__file__).parent
+BLOG_DIR = ROOT / "blog"
+HOMEPAGE = ROOT / "index.html"
+INDEX_LIMIT = 20
+HOMEPAGE_LIMIT = 4
+
+# Posts without an image of their own get one of these (paths under images/).
+# The choice comes from a hash of the slug, so a post keeps the same image
+# between runs. They are 3:2 crops of photos the homepage does not use, so the
+# blog cards never repeat the gallery above them.
+FALLBACK_IMAGES = [
+    "blog-fallback/Nick_Pensive.webp",
+    "blog-fallback/Nick_Podcast.webp",
+    "blog-fallback/Nick_Podcast_2.webp",
+    "blog-fallback/Nick_Running.webp",
+    "blog-fallback/Nick_Running_2.webp",
+    "blog-fallback/RunningMinds041.webp",
+    "blog-fallback/1000128511.webp",
+    "blog-fallback/RunningMinds034.webp",
+]
 # ----------------------------------------
-
-os.makedirs(BLOG_DIR, exist_ok=True)
-
-feed = feedparser.parse(requests.get(FEED_URL).content)
 
 # ---------------- HTML Templates ----------------
 INDEX_HEADER = """<!DOCTYPE html>
@@ -22,112 +54,38 @@ INDEX_HEADER = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog — Nick Hampshire Coaching</title>
-  <meta name="description" content="Insights on communication, leadership and personal performance from Nick Hampshire — coach, speaker and event host.">
+  <title>Blog | Nick Hampshire</title>
+  <meta name="description" content="Insights on communication, leadership and personal performance from Nick Hampshire, coach, speaker and event host.">
   <link rel="canonical" href="https://nickhampshire.com/blog/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nickhampshire.com/blog/">
-  <meta property="og:title" content="Blog — Nick Hampshire Coaching">
-  <meta property="og:description" content="Insights on communication, leadership and personal performance from Nick Hampshire — coach, speaker and event host.">
+  <meta property="og:title" content="Blog | Nick Hampshire">
+  <meta property="og:description" content="Insights on communication, leadership and personal performance from Nick Hampshire, coach, speaker and event host.">
   <meta property="og:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="627">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Blog — Nick Hampshire Coaching">
-  <meta name="twitter:description" content="Insights on communication, leadership and personal performance from Nick Hampshire — coach, speaker and event host.">
+  <meta name="twitter:title" content="Blog | Nick Hampshire">
+  <meta name="twitter:description" content="Insights on communication, leadership and personal performance from Nick Hampshire, coach, speaker and event host.">
   <meta name="twitter:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
-  <link rel="icon" type="image/x-icon" href="../images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link href="../css/custom.css" rel="stylesheet">
+  <!-- HEAD_ASSETS_START -->
+  <!-- HEAD_ASSETS_END -->
 </head>
 <body>
- <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="../"><img src="../images/logo.png" alt="Logo" height="75px"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="../about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
-          <li class="nav-item"><a class="nav-link" href="../speaking">Speaking</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
-          <li class="nav-item"><a class="btn btn-primary btn-sm"
-              href="https://calendly.com/nickhampshire1/chat" target="_blank" rel="noopener">Book a call</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <main class="container mt-5">
-    <div class="section-head">
-      <h1>The Blog</h1>
+  <!-- NAV_SECTION_START -->
+  <!-- NAV_SECTION_END -->
+  <main id="main" class="container">
+    <div class="page-intro">
+      <h1>The blog</h1>
       <p class="lead">Insights on communication, leadership and performance.</p>
     </div>
     <div class="blog-list-group">
 """
 
-INDEX_FOOTER = """
-    </div>
+INDEX_FOOTER = """    </div>
   </main>
-  <footer id="footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <p class="footer-brand-name">Nick Hampshire</p>
-        <p class="footer-brand-tagline">Confidence in communication.<br>Energy in leadership.<br>Performance at your peak.</p>
-        <div class="footer-social">
-          <a href="https://x.com/nickhamps04" target="_blank" class="social-icon" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-          <a href="https://www.linkedin.com/in/nickhampshire1/" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-          <a href="https://www.facebook.com/nickhampshirefitness/" target="_blank" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="https://www.youtube.com/@nickhampshire" target="_blank" class="social-icon" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-          <a href="https://www.instagram.com/nickhampshire_/?hl=en" target="_blank" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="https://nickhampshire.substack.com/" target="_blank" class="social-icon" aria-label="Substack"><i class="bi bi-substack"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Navigate</p>
-        <ul class="footer-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/coaching">Coaching</a></li>
-          <li><a href="/speaking">Speaking</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Services</p>
-        <ul class="footer-links">
-          <li><a href="/coaching">Public Speaking Coaching</a></li>
-          <li><a href="/coaching">Communication Workshops</a></li>
-          <li><a href="/coaching">Executive Coaching</a></li>
-          <li><a href="/speaking">Speaking &amp; Hosting</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Connect</p>
-        <p class="footer-connect-text">Ready to unlock your potential?</p>
-        <a href="https://calendly.com/nickhampshire1/chat" target="_blank" class="footer-cta-btn">Book a Free Call &rarr;</a>
-        <a href="/contact" class="footer-secondary-link">Or send a message &rarr;</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copyright">&copy; 2026 Nick Hampshire. All rights reserved.</p>
-    </div>
-  </footer>
-
+  <!-- FOOTER_SECTION_START -->
   <!-- FOOTER_SECTION_END -->
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/main.js"></script>
 </body>
 </html>
 """
@@ -137,306 +95,303 @@ POST_TEMPLATE = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — Nick Hampshire</title>
-  <meta name="description" content="{subtitle}">
-  <link rel="canonical" href="https://nickhampshire.com/blog/{slug}.html">
+  <title>{title_attr} | Nick Hampshire</title>
+  <meta name="description" content="{subtitle_attr}">
+  <link rel="canonical" href="{url}">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://nickhampshire.com/blog/{slug}.html">
-  <meta property="og:title" content="{title} — Nick Hampshire">
-  <meta property="og:description" content="{subtitle}">
-  <meta property="og:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="627">
+  <meta property="og:url" content="{url}">
+  <meta property="og:title" content="{title_attr} | Nick Hampshire">
+  <meta property="og:description" content="{subtitle_attr}">
+  <meta property="og:image" content="{og_image}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{title} — Nick Hampshire">
-  <meta name="twitter:description" content="{subtitle}">
-  <meta name="twitter:image" content="https://nickhampshire.com/images/Nick_Hero.jpg">
-  <link rel="icon" type="image/x-icon" href="../images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link href="../css/custom.css" rel="stylesheet">
+  <meta name="twitter:title" content="{title_attr} | Nick Hampshire">
+  <meta name="twitter:description" content="{subtitle_attr}">
+  <meta name="twitter:image" content="{og_image}">
+  <!-- HEAD_ASSETS_START -->
+  <!-- HEAD_ASSETS_END -->
   <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "{title}",
-    "description": "{subtitle}",
-    "datePublished": "{date}",
-    "author": {{
-      "@type": "Person",
-      "name": "Nick Hampshire",
-      "url": "https://nickhampshire.com"
-    }},
-    "publisher": {{
-      "@type": "Person",
-      "name": "Nick Hampshire",
-      "url": "https://nickhampshire.com"
-    }},
-    "url": "https://nickhampshire.com/blog/{slug}.html"
-  }}
+{ld_json}
   </script>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="../"><img src="../images/logo.png" alt="Logo" height="75px"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="../about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="../coaching">Coaching</a></li>
-          <li class="nav-item"><a class="nav-link" href="../speaking">Speaking</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/blog">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="../contact">Contact</a></li>
-          <li class="nav-item"><a class="btn btn-primary btn-sm"
-              href="https://calendly.com/nickhampshire1/chat" target="_blank" rel="noopener">Book a call</a></li>
-        </ul>
+  <!-- NAV_SECTION_START -->
+  <!-- NAV_SECTION_END -->
+  <main id="main" class="container">
+    <article class="post">
+      <div class="post-header">
+        <h1>{title_html}</h1>
+        <p class="post-date">{date}</p>
       </div>
-    </div>
-  </nav>
-  <main class="container mt-5">
-    <h1>{title}</h1>
-    <p class="">{date}</p>
-    <article class="mt-4">
+      <div class="post-body">
       {content}
+      </div>
     </article>
-    <a href="/blog" class="btn btn-primary mt-4 mb-4">← Back to Blog</a>
+    <!-- POST_END_START -->
+    <!-- POST_END_END -->
   </main>
-  <footer id="footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <p class="footer-brand-name">Nick Hampshire</p>
-        <p class="footer-brand-tagline">Confidence in communication.<br>Energy in leadership.<br>Performance at your peak.</p>
-        <div class="footer-social">
-          <a href="https://x.com/nickhamps04" target="_blank" class="social-icon" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-          <a href="https://www.linkedin.com/in/nickhampshire1/" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-          <a href="https://www.facebook.com/nickhampshirefitness/" target="_blank" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="https://www.youtube.com/@nickhampshire" target="_blank" class="social-icon" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-          <a href="https://www.instagram.com/nickhampshire_/?hl=en" target="_blank" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="https://nickhampshire.substack.com/" target="_blank" class="social-icon" aria-label="Substack"><i class="bi bi-substack"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Navigate</p>
-        <ul class="footer-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/coaching">Coaching</a></li>
-          <li><a href="/speaking">Speaking</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Services</p>
-        <ul class="footer-links">
-          <li><a href="/coaching">Public Speaking Coaching</a></li>
-          <li><a href="/coaching">Communication Workshops</a></li>
-          <li><a href="/coaching">Executive Coaching</a></li>
-          <li><a href="/speaking">Speaking &amp; Hosting</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p class="footer-heading">Connect</p>
-        <p class="footer-connect-text">Ready to unlock your potential?</p>
-        <a href="https://calendly.com/nickhampshire1/chat" target="_blank" class="footer-cta-btn">Book a Free Call &rarr;</a>
-        <a href="/contact" class="footer-secondary-link">Or send a message &rarr;</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copyright">&copy; 2026 Nick Hampshire. All rights reserved.</p>
-    </div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/main.js"></script>
+  <!-- FOOTER_SECTION_START -->
+  <!-- FOOTER_SECTION_END -->
 </body>
 </html>
 """
 # ------------------------------------------------
 
+
+@dataclass
+class Post:
+    slug: str
+    title: str
+    subtitle: str
+    content: str
+    published: datetime | None
+    image: str          # root-relative or absolute URL
+    has_own_image: bool
+
+    @property
+    def url(self):
+        return f"{SITE_URL}/blog/{self.slug}.html"
+
+    @property
+    def og_image(self):
+        return self.image if self.image.startswith("http") else SITE_URL + self.image
+
+    @property
+    def date_long(self):
+        return self.published.strftime("%B %d, %Y") if self.published else ""
+
+    @property
+    def date_short(self):
+        return self.published.strftime("%b %d, %Y") if self.published else ""
+
+
 def slugify(text):
     return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')
 
-# --- Build blog index ---
-index_html = INDEX_HEADER
 
-for i, entry in enumerate(feed.entries[:20]):  # only latest 20
-    slug = slugify(entry.title)
-    date = datetime(*entry.published_parsed[:6]).strftime("%b %d, %Y")
+def fallback_image(slug):
+    digest = int(hashlib.md5(slug.encode()).hexdigest(), 16)
+    return FALLBACK_IMAGES[digest % len(FALLBACK_IMAGES)]
 
-    # Try to get first image from post, else default
-    content = entry.get("content", [{"value": entry.get("summary", "")}])[0]["value"]
-    soup = BeautifulSoup(content, "html.parser")
-    img_tag = soup.find("img")
-    if img_tag and img_tag.get("src"):
-        img_src = img_tag["src"]
-    else:
-        img_src = "../images/Nick_Pensive.jpg"  # relative to blog/index.html
 
-    # Subtitle (cleaned summary, or blank if none)
-    raw_subtitle = entry.get("summary", "")
-    subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else ""
-
-    if i == 0:
-        # --- Featured (latest) blog post ---
-        index_html += f"""
-        <a href="{slug}.html" class="text-decoration-none text-reset">
-        <div class="card mb-4 text-bg-dark featured-blog-card">
-          <div class="featured-card-row">
-            <div class="featured-card-img">
-              <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded" alt="{entry.title}">
-            </div>
-            <div class="featured-card-body">
-              <h2 class="card-title">{entry.title}</h2>
-              <p class="card-subtitle mb-2">{subtitle}</p>
-              <p class="card-text"><small class="">{date}</small></p>              
-            </div>
-          </div>
-        </div>
-        </a>
-        """
-    else:
-        # --- Regular blog posts ---
-        index_html += f"""
-        <a href="{slug}.html" class="text-decoration-none text-reset">
-        <div class="card mb-3 text-bg-dark blog-card">
-          <div class="blog-card-row">
-            <div class="blog-card-img">
-              <img src="{img_src}" class="img-fluid h-100 w-100 object-fit-cover rounded-top" alt="{entry.title}">
-            </div>
-            <div class="blog-card-content">
-              <h5 class="card-title">{entry.title}</h5>
-              <p class="card-subtitle mb-2">{subtitle}</p>
-              <p class="card-text"><small class="">{date}</small></p>
-            </div>
-          </div>
-        </div>
-        </a>
-        """
-
-index_html += INDEX_FOOTER
-
-with open(os.path.join(BLOG_DIR, "index.html"), "w", encoding="utf-8") as f:
-    f.write(index_html)
-
-# --- Build individual posts ---
-for i, entry in enumerate(feed.entries, start=1):
-    slug = slugify(entry.title)
-    date = datetime(*entry.published_parsed[:6]).strftime("%B %d, %Y")
-
-    # use content if available, else summary
-    content = entry.get("content", [{"value": entry.get("summary", "")}])[0]["value"]
-
-    soup = BeautifulSoup(content, "html.parser")
-    [s.extract() for s in soup(["script", "iframe"])]  # remove scripts
-    clean_content = str(soup)
-
-    raw_subtitle = entry.get("summary", "")
-    subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else "Insights on communication, leadership and personal performance from Nick Hampshire."
-
-    html = POST_TEMPLATE.format(title=entry.title, date=date, content=clean_content, subtitle=subtitle, slug=slug)
-    with open(os.path.join(BLOG_DIR, f"{slug}.html"), "w", encoding="utf-8") as f:
-        f.write(html)
-
-    print(f"✅ Generated post {i}: {entry.title} → {slug}.html")
-
-# --- Update homepage: newest post featured, next three stacked beside it ---
-def post_fields(entry):
-    """Slug, date, image src and subtitle for one entry, paths relative to
-    index.html."""
-    slug = slugify(entry.title)
-    date = datetime(*entry.published_parsed[:6]).strftime("%b %d, %Y")
-
-    content = entry.get("content", [{"value": entry.get("summary", "")}])[0]["value"]
+def image_for(slug, content):
+    """The post's first image, or a stable fallback from the pool."""
     img_tag = BeautifulSoup(content, "html.parser").find("img")
-    img_src = img_tag["src"] if img_tag and img_tag.get("src") else "images/Nick_Pensive.jpg"
+    if img_tag and img_tag.get("src"):
+        return img_tag["src"], True
+    return f"/images/{fallback_image(slug)}", False
 
+
+def clean_content(content):
+    soup = BeautifulSoup(content, "html.parser")
+    for tag in soup(["script", "iframe"]):
+        tag.extract()
+    return str(soup)
+
+
+def post_from_entry(entry):
+    content = entry.get("content", [{"value": entry.get("summary", "")}])[0]["value"]
     raw_subtitle = entry.get("summary", "")
     subtitle = BeautifulSoup(raw_subtitle, "html.parser").get_text().strip() if raw_subtitle else ""
+    slug = slugify(entry.title)
+    image, own = image_for(slug, content)
+    return Post(
+        slug=slug,
+        title=entry.title,
+        subtitle=subtitle,
+        content=clean_content(content),
+        published=datetime(*entry.published_parsed[:6]),
+        image=image,
+        has_own_image=own,
+    )
 
-    return slug, date, img_src, subtitle
+
+def post_from_file(path):
+    """Rebuild a Post from a page already in blog/ (old or new template)."""
+    soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
+    h1 = soup.find("h1")
+    body = soup.select_one(".post-body") or soup.find("article")
+    date_tag = soup.select_one(".post-date") or (h1.find_next_sibling("p") if h1 else None)
+    description = soup.find("meta", attrs={"name": "description"})
+
+    published = None
+    if date_tag:
+        try:
+            published = datetime.strptime(date_tag.get_text(strip=True), "%B %d, %Y")
+        except ValueError:
+            pass
+
+    content = "".join(str(child) for child in body.contents).strip() if body else ""
+    image, own = image_for(path.stem, content)
+    return Post(
+        slug=path.stem,
+        title=h1.get_text(strip=True) if h1 else path.stem,
+        subtitle=description["content"] if description else "",
+        content=content,
+        published=published,
+        image=image,
+        has_own_image=own,
+    )
 
 
-latest_posts = feed.entries[:4]
-cards_html = """<section id="latest-blog" class="container my-5">
-  <div class="section-head">
-    <h2>Latest from the Blog</h2>
-  </div>
-  <div class="blog-grid">
-"""
+def render_post(post):
+    ld = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title,
+        "description": post.subtitle,
+        "image": post.og_image,
+        "author": {"@type": "Person", "name": "Nick Hampshire", "url": SITE_URL},
+        "publisher": {"@type": "Person", "name": "Nick Hampshire", "url": SITE_URL},
+        "url": post.url,
+    }
+    if post.published:
+        ld["datePublished"] = post.published.date().isoformat()
+    ld_json = json.dumps(ld, indent=2, ensure_ascii=False).replace("</", "<\\/")
 
-# Newest post: full card on the left
-featured = latest_posts[0]
-f_slug, f_date, f_img, f_subtitle = post_fields(featured)
-cards_html += f"""
-    <div class="blog-featured">
-      <a href="blog/{f_slug}.html" class="text-decoration-none text-reset">
-        <div class="card h-100 text-bg-dark">
-          <img src="{f_img}" class="card-img-top" alt="{featured.title}">
-          <div class="card-body">
-            <h3 class="card-title">{featured.title}</h3>
-            <p class="card-subtitle">{f_subtitle}</p>
-            <p class="card-text">{f_date}</p>
-          </div>
+    subtitle = post.subtitle or "Insights on communication, leadership and personal performance from Nick Hampshire."
+    return POST_TEMPLATE.format(
+        title_attr=html.escape(post.title),
+        title_html=html.escape(post.title, quote=False),
+        subtitle_attr=html.escape(subtitle),
+        url=post.url,
+        og_image=html.escape(post.og_image),
+        ld_json=ld_json,
+        date=post.date_long,
+        content=post.content,
+    )
+
+
+def display_images(posts, window):
+    """Images for a run of cards, stepping a fallback forward through the pool
+    when it would repeat one of the previous `window` cards."""
+    recent, images = [], []
+    for post in posts:
+        image = post.image
+        if not post.has_own_image:
+            name = image.removeprefix("/images/")
+            start = FALLBACK_IMAGES.index(name)
+            for step in range(len(FALLBACK_IMAGES)):
+                name = FALLBACK_IMAGES[(start + step) % len(FALLBACK_IMAGES)]
+                if f"/images/{name}" not in recent[-window:]:
+                    break
+            image = f"/images/{name}"
+        recent.append(image)
+        images.append(image)
+    return images
+
+
+def blog_tile(post, image, featured):
+    classes = "blog-tile blog-tile--featured" if featured else "blog-tile"
+    loading = "" if featured else ' loading="lazy"'
+    subtitle = f'\n          <p class="blog-tile-subtitle">{html.escape(post.subtitle, quote=False)}</p>' if post.subtitle else ""
+    return f"""      <a href="{post.slug}.html" class="{classes}">
+        <img src="{html.escape(image)}" alt=""{loading}>
+        <div class="blog-tile-body">
+          <h2 class="blog-tile-title">{html.escape(post.title, quote=False)}</h2>{subtitle}
+          <p class="blog-tile-date">{post.date_short}</p>
         </div>
       </a>
-    </div>
-
-    <div class="blog-recent">
 """
 
-# The three behind it: compact cards stacked on the right
-for entry in latest_posts[1:4]:
-    slug, date, img_src, _ = post_fields(entry)
-    cards_html += f"""
-      <div class="blog-mini">
-        <a href="blog/{slug}.html" class="text-decoration-none text-reset">
-          <div class="card text-bg-dark">
-            <div class="blog-mini-row">
-              <img src="{img_src}" class="blog-mini-img" alt="{entry.title}">
-              <div class="blog-mini-body">
-                <h5 class="card-title">{entry.title}</h5>
-                <p class="card-text">{date}</p>
+
+def build_index(posts):
+    posts = posts[:INDEX_LIMIT]
+    images = display_images(posts, window=2)
+    tiles = [blog_tile(post, image, featured=(i == 0)) for i, (post, image) in enumerate(zip(posts, images))]
+    (BLOG_DIR / "index.html").write_text(INDEX_HEADER + "".join(tiles) + INDEX_FOOTER, encoding="utf-8")
+
+
+def build_homepage_section(posts):
+    posts = posts[:HOMEPAGE_LIMIT]
+    images = display_images(posts, window=HOMEPAGE_LIMIT)
+    featured, recent = posts[0], posts[1:]
+
+    cards = f"""<section id="latest-blog" class="container">
+      <div class="section-head">
+        <h2>Latest from the blog</h2>
+      </div>
+      <div class="blog-grid">
+
+        <div class="blog-featured">
+          <a href="/blog/{featured.slug}.html" class="text-decoration-none text-reset">
+            <div class="card h-100 text-bg-dark">
+              <img src="{html.escape(images[0])}" class="card-img-top" alt="" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">{html.escape(featured.title, quote=False)}</h3>
+                <p class="card-subtitle">{html.escape(featured.subtitle, quote=False)}</p>
+                <p class="card-text">{featured.date_short}</p>
               </div>
             </div>
+          </a>
+        </div>
+
+        <div class="blog-recent">
+"""
+    for post, image in zip(recent, images[1:]):
+        cards += f"""
+          <div class="blog-mini">
+            <a href="/blog/{post.slug}.html" class="text-decoration-none text-reset">
+              <div class="card text-bg-dark">
+                <div class="blog-mini-row">
+                  <img src="{html.escape(image)}" class="blog-mini-img" alt="" loading="lazy">
+                  <div class="blog-mini-body">
+                    <h3 class="card-title">{html.escape(post.title, quote=False)}</h3>
+                    <p class="card-text">{post.date_short}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
           </div>
-        </a>
+"""
+    cards += """        </div>
       </div>
-"""
+    </section>"""
 
-cards_html += """    </div>
-"""
-cards_html += "  </div>\n</section>\n"
+    wrapped = f"<!-- BLOG_SECTION_START -->\n    {cards}\n    <!-- BLOG_SECTION_END -->"
+    homepage = HOMEPAGE.read_text(encoding="utf-8")
+    pattern = r"<!-- BLOG_SECTION_START -->.*?<!-- BLOG_SECTION_END -->"
+    if re.search(pattern, homepage, flags=re.DOTALL):
+        homepage = re.sub(pattern, lambda _: wrapped, homepage, flags=re.DOTALL)
+        print("✅ Homepage blog section replaced with the latest posts")
+    else:
+        homepage += "\n" + wrapped
+        print("✅ Homepage blog section added at end (first time)")
+    HOMEPAGE.write_text(homepage, encoding="utf-8")
 
 
-# Wrap with markers so future runs can replace
-wrapped_cards = f"<!-- BLOG_SECTION_START -->\n{cards_html}\n<!-- BLOG_SECTION_END -->"
+def rebuild_archive(feed_slugs):
+    """Re-render posts that are on disk but no longer in the feed."""
+    count = 0
+    for path in sorted(BLOG_DIR.glob("*.html")):
+        if path.name == "index.html" or path.stem in feed_slugs:
+            continue
+        path.write_text(render_post(post_from_file(path)), encoding="utf-8")
+        count += 1
+    print(f"✅ Re-rendered {count} archived post(s)")
 
-with open(HOMEPAGE, "r", encoding="utf-8") as f:
-    homepage_html = f.read()
 
-if "<!-- BLOG_SECTION_START -->" in homepage_html and "<!-- BLOG_SECTION_END -->" in homepage_html:
-    # Replace existing section
-    import re
-    homepage_html = re.sub(
-        r"<!-- BLOG_SECTION_START -->(.*?)<!-- BLOG_SECTION_END -->",
-        wrapped_cards,
-        homepage_html,
-        flags=re.DOTALL
-    )
-    print("✅ Homepage blog section replaced with latest 3 posts")
-else:
-    # If markers not found, append at end
-    homepage_html += "\n" + wrapped_cards
-    print("✅ Homepage blog section added at end (first time)")
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--rebuild-archive", action="store_true",
+                        help="also re-render older posts in blog/ that are no longer in the feed")
+    args = parser.parse_args()
 
-with open(HOMEPAGE, "w", encoding="utf-8") as f:
-    f.write(homepage_html)
+    BLOG_DIR.mkdir(exist_ok=True)
+    feed = feedparser.parse(requests.get(FEED_URL, timeout=30).content)
+    posts = [post_from_entry(entry) for entry in feed.entries]
+
+    build_index(posts)
+    for i, post in enumerate(posts, start=1):
+        (BLOG_DIR / f"{post.slug}.html").write_text(render_post(post), encoding="utf-8")
+        print(f"✅ Generated post {i}: {post.title} → {post.slug}.html")
+
+    build_homepage_section(posts)
+
+    if args.rebuild_archive:
+        rebuild_archive({post.slug for post in posts})
+
+    build_partials.main()
+
+
+if __name__ == "__main__":
+    main()
