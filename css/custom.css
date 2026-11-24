@@ -42,10 +42,20 @@
      autofill) should render dark too. */
   color-scheme: dark;
 
+  /* Colour split, measured by screen coverage (60/30/10):
+     60  dominant:  --background-color (the page ground)
+     30  secondary: --surface-color, --card-bg, --input-bg, --hairline,
+                    --border-subtle and the text roles
+     10  accent:    --primary-color, reserved for the main call to action,
+                    links, focus, the nav underline and one highlight per
+                    screen. Borders, labels and headings stay neutral.
+     Photography and --danger sit outside the split. */
+
   /* Brand Colors */
   --primary-color: #9FEDED;   /* the single brand teal: eyebrows, links, accents, primary CTAs */
-  --secondary-color: #7A3EE3; /* brand purple, bright: solid marks only (avatar rings).
-                                 Never as a tint, haze or glow. */
+  --secondary-color: #7A3EE3; /* brand purple, bright. Not used on the site: the
+                                 purple lives in the tinted surfaces below, and a
+                                 second loud colour would compete with the teal. */
   --white: #F9F9FE;
   --danger: #FF8A8A;          /* form errors: 7.6:1 on the band surface */
 
@@ -83,6 +93,8 @@
   /* Borders */
   --border-subtle: 1px solid rgba(255, 255, 255, 0.1);
   --hairline: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(249, 249, 254, 0.2);   /* inputs, featured card */
+  --border-hover: rgba(249, 249, 254, 0.3);    /* card hover */
 
   /* Motion. Name the properties you animate; never transition "all". */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -279,7 +291,8 @@ main > section {
 }
 
 /* Keeps anchor targets clear of the fixed navbar */
-section[id] {
+section[id],
+.prose h2[id] {
   scroll-margin-top: calc(var(--nav-height) + 1.5rem);
 }
 
@@ -311,10 +324,14 @@ main.container {
   padding: clamp(3.5rem, 7vw, 5rem) 0;
 }
 
-/* Closing call to action on inner pages: a hairline, not a box */
+/* Closing call to action on inner pages: a panel on the secondary surface,
+   so the 30 part of the colour split shows up on pages without a band and
+   the main action gets its own stage. */
 .cta-band {
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--hairline);
+  background: var(--surface-color);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3rem);
 }
 
 .cta-band h2 {
@@ -326,6 +343,10 @@ main.container {
   margin-bottom: 1.5rem;
 }
 
+.cta-band .button-row {
+  margin-bottom: 0;
+}
+
 .cta-band--compact {
   margin-top: 3rem;
 }
@@ -334,7 +355,7 @@ main.container {
 /* ==========================================================================
    6. BUTTONS
    ==========================================================================
-   Primary (teal fill) and secondary (teal outline) buttons, the extra-large
+   Primary (teal fill) and secondary (neutral outline) buttons, the extra-large
    variant for CTAs, and the row that lays buttons out.
    ========================================================================== */
 .btn {
@@ -359,8 +380,8 @@ main.container {
 /* Ghost button: the quiet secondary action */
 .btn-secondary {
   background: transparent !important;
-  border: 1px solid rgba(159, 237, 237, 0.45) !important;
-  color: var(--primary-color) !important;
+  border: 1px solid var(--border-hover) !important;
+  color: var(--white) !important;
   font-weight: 600 !important;
   letter-spacing: 0.02em;
   border-radius: var(--radius-md);
@@ -369,8 +390,8 @@ main.container {
 }
 
 .btn-secondary:hover {
-  background: rgba(159, 237, 237, 0.08) !important;
-  border-color: var(--primary-color) !important;
+  background: rgba(249, 249, 254, 0.06) !important;
+  border-color: rgba(249, 249, 254, 0.6) !important;
   transform: translateY(-2px);
 }
 
@@ -467,7 +488,7 @@ main.container {
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
-  color: var(--primary-color) !important;
+  color: var(--white) !important;
 }
 
 .navbar .navbar-toggler {
@@ -592,7 +613,7 @@ main > .hero-section {
 }
 
 .hero-eyebrow {
-  color: var(--primary-color);
+  color: var(--text-muted);
   font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -791,14 +812,14 @@ main > .hero-section {
 #services-overview .service-card:hover,
 #services-overview .service-card:focus-within {
   transform: translateY(-6px);
-  border-color: rgba(159, 237, 237, 0.35);
+  border-color: var(--border-hover);
   box-shadow: var(--shadow-lift);
 }
 
 /* Feature treatment for the flagship offer: a brighter border does the work,
    no tinted haze behind it. */
 .service-feature {
-  border: 1px solid rgba(159, 237, 237, 0.2);
+  border: 1px solid var(--border-strong);
 }
 
 #services-overview .service-feature {
@@ -942,7 +963,7 @@ main > .hero-section {
   width: 120px;
   height: 120px;
   object-fit: cover;
-  border: 4px solid var(--secondary-color);
+  border: 4px solid var(--card-bg);
   border-radius: var(--radius-full);
   margin-bottom: var(--spacing-lg);
 }
@@ -959,7 +980,7 @@ main > .hero-section {
 }
 
 .quote {
-  color: var(--secondary-color);
+  color: var(--text-muted);
   font-size: var(--text-xl);
   margin-right: 0.35rem;
 }
@@ -1024,7 +1045,7 @@ main > .hero-section {
   width: 48px;
   height: 48px;
   object-fit: cover;
-  border: 2px solid var(--secondary-color);
+  border: 2px solid var(--border-strong);
   border-radius: var(--radius-full);
 }
 
@@ -1062,7 +1083,7 @@ main > .hero-section {
 }
 
 #latest-blog .card:hover {
-  border-color: rgba(159, 237, 237, 0.35);
+  border-color: var(--border-hover);
 }
 
 #latest-blog .card-img-top {
@@ -1220,11 +1241,9 @@ main > .hero-section {
 }
 
 .footer-heading {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--primary-color);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-muted);
   margin: 0 0 0.25rem;
 }
 
@@ -1398,7 +1417,7 @@ main > .hero-section {
 }
 
 .blog-tile:hover {
-  border-color: rgba(159, 237, 237, 0.35);
+  border-color: var(--border-hover);
 }
 
 .blog-tile img {
@@ -1610,7 +1629,7 @@ main > .split-section {
   color: var(--primary-color);
 }
 
-/* Speaking page: bold teal labels at the start of each point */
+/* Speaking page: bold labels at the start of each point */
 .label-list {
   padding-left: 1.25rem;
 }
@@ -1766,7 +1785,7 @@ main > .split-section {
   flex: none;
   width: 72px;
   height: 72px;
-  border: 2px solid var(--secondary-color);
+  border: 2px solid var(--border-strong);
   border-radius: var(--radius-full);
 }
 
@@ -1868,10 +1887,6 @@ main > .contact-card {
   margin-bottom: 0.5rem;
 }
 
-.contact-text .testimonial {
-  margin-top: 1rem;
-}
-
 .contact-form {
   padding: 2.5rem;
 }
@@ -1882,7 +1897,7 @@ main > .contact-card {
 .contact-form .form-select {
   min-height: 44px;
   background-color: var(--input-bg);
-  border: 1px solid rgba(159, 237, 237, 0.2);
+  border: 1px solid var(--border-strong);
   color: var(--white);
   border-radius: var(--radius-md);
 }
@@ -1936,7 +1951,7 @@ main > .contact-card {
 
 .contact-form .was-validated .form-control:valid,
 .contact-form .was-validated .form-select:valid {
-  border-color: rgba(159, 237, 237, 0.2);
+  border-color: var(--border-strong);
 }
 
 .contact-form .was-validated .form-control:valid,
@@ -1951,6 +1966,64 @@ main > .contact-card {
 .contact-form .was-validated .form-select:invalid:not([multiple]):not([size]) {
   --bs-form-select-bg-icon: none;
   padding-right: 2.25rem;
+}
+
+/* Newsletter opt-in checkbox. The border is strong enough to meet 3:1
+   against the card; when ticked the box fills teal with a dark tick. */
+.contact-form .form-check {
+  font-size: var(--text-sm);
+  margin-top: 0.25rem;
+}
+
+.contact-form .form-check-label {
+  color: var(--text-body);
+}
+
+.contact-form .form-check-input {
+  width: 1.15em;
+  height: 1.15em;
+  margin-top: 0.15em;
+  background-color: var(--input-bg);
+  border: 1px solid rgba(249, 249, 254, 0.45);
+  cursor: pointer;
+}
+
+.contact-form .form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.contact-form .form-check-input:checked[type="checkbox"] {
+  --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%230F0A1A' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.contact-form .form-check-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: none;
+}
+
+.contact-form .form-check-input:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* The opt-in is optional, so it is always "valid": stop Bootstrap turning it
+   and its label green after a failed submit */
+.contact-form .was-validated .form-check-input:valid {
+  border-color: rgba(249, 249, 254, 0.45);
+}
+
+.contact-form .was-validated .form-check-input:valid:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.contact-form .was-validated .form-check-input:valid:focus {
+  box-shadow: none;
+}
+
+.contact-form .was-validated .form-check-input:valid ~ .form-check-label {
+  color: var(--text-body);
 }
 
 /* Tablet */

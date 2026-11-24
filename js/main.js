@@ -16,7 +16,21 @@
 (function () {
   var form = document.querySelector('.contact-form form');
   if (!form) return;
+
+  // Newsletter opt-in: the checkbox has no name, so the hidden field carries
+  // "Yes" or "No" and is always submitted.
+  var optIn = document.getElementById('newsletterOptIn');
+  var optInValue = document.getElementById('newsletterOptInValue');
+  function syncOptIn() {
+    if (optIn && optInValue) optInValue.value = optIn.checked ? 'Yes' : 'No';
+  }
+  if (optIn) optIn.addEventListener('change', syncOptIn);
+  // Coming back with the Back button can restore the checkbox without firing
+  // "change", so re-read it whenever the page is shown.
+  window.addEventListener('pageshow', syncOptIn);
+
   form.addEventListener('submit', function (event) {
+    syncOptIn();
     if (!form.checkValidity()) {
       event.preventDefault();
       form.classList.add('was-validated');

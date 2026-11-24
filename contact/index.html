@@ -68,16 +68,6 @@
         </ol>
         <p>Prefer to talk straight away? <a href="https://calendly.com/nickhampshire1/chat" target="_blank"
             rel="noopener">Book a free call</a>.</p>
-        <figure class="testimonial">
-          <blockquote>
-            <p>“We’ve had the pleasure of collaborating with Nick for nearly five years… Our clients are very happy
-              with him and always ask for him!”</p>
-          </blockquote>
-          <figcaption>
-            <img src="/images/Testimonial_7.jpg" alt="Eric Poris" width="48" height="48" loading="lazy">
-            <span><strong>Eric Poris</strong> Owner and founder, Easyworld Academy</span>
-          </figcaption>
-        </figure>
       </div>
       <div class="contact-form">
         <form action="https://api.web3forms.com/submit" method="POST" novalidate>
@@ -109,9 +99,23 @@
             <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
             <div class="invalid-feedback">Please add a short message.</div>
           </div>
+          <!-- Newsletter opt-in (UK GDPR / PECR): unticked by default, optional, and never a condition of
+               sending the enquiry. The hidden field is always submitted, so every email shows the opt-in status;
+               main.js keeps it in step with the checkbox. -->
+          <input type="hidden" name="Newsletter opt-in" id="newsletterOptInValue" value="No">
+          <!-- Keep in sync: this value must exactly match the visible label text below, minus the privacy link -->
+          <input type="hidden" name="Consent wording" value="Yes, send me Nick's newsletter: practical ideas on confidence, energy and speaking with impact. Roughly once a month. Unsubscribe any time.">
+          <div class="form-check mb-3">
+            <!-- Deliberately no name attribute: the hidden field above carries the value -->
+            <input class="form-check-input" type="checkbox" id="newsletterOptIn">
+            <label class="form-check-label" for="newsletterOptIn">
+              Yes, send me Nick's newsletter: practical ideas on confidence, energy and speaking with impact.
+              Roughly once a month. Unsubscribe any time. <a href="/privacy/#newsletter">Privacy policy</a>
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary w-100">Send message</button>
-          <p class="form-note">Your details are only used to reply to your enquiry. <a href="/privacy/">Privacy
-              policy</a></p>
+          <p class="form-note">Your details are used to reply to your enquiry, and to send the newsletter only if
+            you ask for it. <a href="/privacy/">Privacy policy</a></p>
         </form>
       </div>
     </div>
