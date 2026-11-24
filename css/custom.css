@@ -793,8 +793,6 @@ main > .hero-section {
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  transition: transform var(--duration) var(--ease-out), border-color var(--duration) var(--ease-out),
-    box-shadow var(--duration) var(--ease-out);
 }
 
 /* Buttons inside cards hug their content and pin to the bottom edge */
@@ -806,14 +804,6 @@ main > .hero-section {
 
 .service-card .btn:not(.btn-xl) {
   padding: 0.75rem 1.5rem;
-}
-
-/* Only the homepage cards are links (stretched-link), so only they lift */
-#services-overview .service-card:hover,
-#services-overview .service-card:focus-within {
-  transform: translateY(-6px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-lift);
 }
 
 /* Feature treatment for the flagship offer: a brighter border does the work,
